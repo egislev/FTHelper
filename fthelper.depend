@@ -1713,7 +1713,7 @@
 	<wx/stattext.h>
 	<wx/textctrl.h>
 
-1697111943 source:/home/egis/HAM/FTHelper/main.cpp
+1697388355 source:/home/egis/HAM/FTHelper/main.cpp
 	<iostream>
 	<fstream>
 	<wx/wx.h>
@@ -1727,19 +1727,21 @@
 	<wx/stattext.h>
 	<wx/textctrl.h>
 
-1697201903 /home/egis/HAM/FTHelper/mainwindow.h
+1697403850 /home/egis/HAM/FTHelper/mainwindow.h
 	<wx/button.h>
 	<wx/checkbox.h>
 	<wx/choice.h>
 	<wx/frame.h>
 	<wx/radiobut.h>
+	<wx/statbox.h>
 	<wx/stattext.h>
 	<wx/textctrl.h>
+	<wx/tglbtn.h>
 	<wx/socket.h>
 	<wx/timer.h>
 	"fthelper.h"
 
-1697198967 source:/home/egis/HAM/FTHelper/mainwindow.cpp
+1697397568 source:/home/egis/HAM/FTHelper/mainwindow.cpp
 	<iostream>
 	<fstream>
 	"mainwindow.h"
@@ -1766,7 +1768,7 @@
 	"wx/defs.h"
 	"wx/string.h"
 
-1697108661 /home/egis/HAM/FTHelper/fthelper.h
+1697388355 /home/egis/HAM/FTHelper/fthelper.h
 	<vector>
 	<iostream>
 	<fstream>
@@ -1790,4 +1792,19 @@
 1648163323 /usr/include/wx-3.0/wx/generic/gridctrl.h
 	"wx/grid.h"
 	"wx/datetime.h"
+
+1648163323 /usr/include/wx-3.0/wx/tglbtn.h
+	"wx/defs.h"
+	"wx/event.h"
+	"wx/anybutton.h"
+	"wx/univ/tglbtn.h"
+	"wx/msw/tglbtn.h"
+	"wx/gtk/tglbtn.h"
+	"wx/gtk1/tglbtn.h"
+	"wx/motif/tglbtn.h"
+	"wx/osx/tglbtn.h"
+	"wx/os2/tglbtn.h"
+
+1648163323 /usr/include/wx-3.0/wx/gtk/tglbtn.h
+	"wx/bitmap.h"
 

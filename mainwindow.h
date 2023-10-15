@@ -7,8 +7,10 @@
 #include <wx/choice.h>
 #include <wx/frame.h>
 #include <wx/radiobut.h>
+#include <wx/statbox.h>
 #include <wx/stattext.h>
 #include <wx/textctrl.h>
+#include <wx/tglbtn.h>
 //*)
 #include <wx/socket.h>
 #include <wx/timer.h>
@@ -37,11 +39,13 @@ class mainwindow: public wxFrame
 		wxCheckBox* fwen;
 		wxCheckBox* onlycq;
 		wxChoice* txtimeout;
+		wxRadioButton* RadioButton1;
 		wxRadioButton* RadioButton2;
 		wxRadioButton* usecq73;
 		wxRadioButton* usecq;
 		wxRadioButton* usemindistance;
 		wxRadioButton* usewantedlist;
+		wxStaticBox* StaticBox1;
 		wxStaticText* StaticText1;
 		wxStaticText* StaticText2;
 		wxStaticText* StaticText3;
@@ -49,6 +53,7 @@ class mainwindow: public wxFrame
 		wxStaticText* StaticText5;
 		wxStaticText* StaticText6;
 		wxStaticText* StaticText7;
+		wxStaticText* StaticText8;
 		wxTextCtrl* decodes;
 		wxTextCtrl* ignorelist;
 		wxTextCtrl* listenip;
@@ -58,11 +63,14 @@ class mainwindow: public wxFrame
 		wxTextCtrl* sendip;
 		wxTextCtrl* sendport;
 		wxTextCtrl* wantedlist;
+		wxTextCtrl* wantedloc;
+		wxToggleButton* pause;
 		//*)
 
 	protected:
 
 		//(*Identifiers(mainwindow)
+		static const long ID_STATICBOX1;
 		static const long ID_BUTTON5;
 		static const long ID_BUTTON1;
 		static const long ID_STATICTEXT3;
@@ -82,6 +90,7 @@ class mainwindow: public wxFrame
 		static const long ID_STATICTEXT5;
 		static const long ID_BUTTON4;
 		static const long ID_CHECKBOX2;
+		static const long ID_TEXTCTRL10;
 		static const long ID_TEXTCTRL8;
 		static const long ID_TEXTCTRL7;
 		static const long ID_RADIOBUTTON1;
@@ -92,6 +101,9 @@ class mainwindow: public wxFrame
 		static const long ID_STATICTEXT7;
 		static const long ID_RADIOBUTTON4;
 		static const long ID_RADIOBUTTON5;
+		static const long ID_STATICTEXT8;
+		static const long ID_RADIOBUTTON6;
+		static const long ID_TOGGLEBUTTON1;
 		//*)
 		static const long SOCKET_ID;
 		static const long TIMER_ID;
@@ -103,6 +115,7 @@ class mainwindow: public wxFrame
 		void OnlogText(wxCommandEvent& event);
 		void OnButton1Click1(wxCommandEvent& event);
 		void OnRadioButton3Select(wxCommandEvent& event);
+		void OnpauseClick(wxCommandEvent& event);
 		//*)
         void OnSocketEvent(wxSocketEvent& event);
 	protected:

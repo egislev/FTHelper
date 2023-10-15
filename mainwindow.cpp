@@ -19,6 +19,7 @@
 #include <algorithm>
 
 //(*IdInit(mainwindow)
+const long mainwindow::ID_STATICBOX1 = wxNewId();
 const long mainwindow::ID_BUTTON5 = wxNewId();
 const long mainwindow::ID_BUTTON1 = wxNewId();
 const long mainwindow::ID_STATICTEXT3 = wxNewId();
@@ -38,6 +39,7 @@ const long mainwindow::ID_CHOICE1 = wxNewId();
 const long mainwindow::ID_STATICTEXT5 = wxNewId();
 const long mainwindow::ID_BUTTON4 = wxNewId();
 const long mainwindow::ID_CHECKBOX2 = wxNewId();
+const long mainwindow::ID_TEXTCTRL10 = wxNewId();
 const long mainwindow::ID_TEXTCTRL8 = wxNewId();
 const long mainwindow::ID_TEXTCTRL7 = wxNewId();
 const long mainwindow::ID_RADIOBUTTON1 = wxNewId();
@@ -48,6 +50,9 @@ const long mainwindow::ID_STATICTEXT6 = wxNewId();
 const long mainwindow::ID_STATICTEXT7 = wxNewId();
 const long mainwindow::ID_RADIOBUTTON4 = wxNewId();
 const long mainwindow::ID_RADIOBUTTON5 = wxNewId();
+const long mainwindow::ID_STATICTEXT8 = wxNewId();
+const long mainwindow::ID_RADIOBUTTON6 = wxNewId();
+const long mainwindow::ID_TOGGLEBUTTON1 = wxNewId();
 //*)
 const long mainwindow::SOCKET_ID = wxNewId();
 const long mainwindow::TIMER_ID = wxNewId();
@@ -83,12 +88,16 @@ mainwindow::mainwindow()
     }
     infile.close ();
     log->AppendText(wxString::Format(wxT("Loaded %lu QSO from worked.dat\n"), worked.size()));
+    wantedlist->LoadFile("wantedprefs.txt");
+    ignorelist->LoadFile("ignorelist.txt");
+    wantedloc->LoadFile("wantedlocs.txt");
 }
 void mainwindow::BuildContent()
 { wxWindow  *parent = NULL;
 	//(*Initialize(mainwindow)
 	Create(parent, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxDEFAULT_FRAME_STYLE, _T("wxID_ANY"));
 	SetClientSize(wxSize(965,780));
+	StaticBox1 = new wxStaticBox(this, ID_STATICBOX1, _("Options"), wxPoint(608,128), wxSize(352,312), 0, _T("ID_STATICBOX1"));
 	Button2 = new wxButton(this, ID_BUTTON5, _("START"), wxPoint(770,8), wxSize(190,33), 0, wxDefaultValidator, _T("ID_BUTTON5"));
 	Button2->SetDefault();
 	startstop = new wxButton(this, ID_BUTTON1, _("START"), wxPoint(770,8), wxSize(190,33), 0, wxDefaultValidator, _T("ID_BUTTON1"));
@@ -119,27 +128,31 @@ void mainwindow::BuildContent()
 	decodingact->Disable();
 	txon = new wxButton(this, ID_BUTTON3, _("TX On"), wxPoint(864,48), wxSize(95,33), 0, wxDefaultValidator, _T("ID_BUTTON3"));
 	txon->Disable();
-	txtimeout = new wxChoice(this, ID_CHOICE1, wxPoint(344,408), wxSize(56,32), 0, 0, 0, wxDefaultValidator, _T("ID_CHOICE1"));
+	txtimeout = new wxChoice(this, ID_CHOICE1, wxPoint(760,304), wxSize(56,32), 0, 0, 0, wxDefaultValidator, _T("ID_CHOICE1"));
 	txtimeout->Append(_("1"));
 	txtimeout->SetSelection( txtimeout->Append(_("2")) );
 	txtimeout->Append(_("3"));
 	txtimeout->Append(_("4"));
 	txtimeout->Append(_("5"));
-	StaticText5 = new wxStaticText(this, ID_STATICTEXT5, _("TX timeout in min."), wxPoint(408,416), wxDefaultSize, 0, _T("ID_STATICTEXT5"));
+	StaticText5 = new wxStaticText(this, ID_STATICTEXT5, _("TX timeout in min."), wxPoint(624,312), wxDefaultSize, 0, _T("ID_STATICTEXT5"));
 	Button1 = new wxButton(this, ID_BUTTON4, _("Clear decodes"), wxPoint(8,448), wxDefaultSize, 0, wxDefaultValidator, _T("ID_BUTTON4"));
 	onlycq = new wxCheckBox(this, ID_CHECKBOX2, _("Show only CQ decodes"), wxPoint(152,456), wxDefaultSize, 0, wxDefaultValidator, _T("ID_CHECKBOX2"));
 	onlycq->SetValue(true);
-	ignorelist = new wxTextCtrl(this, ID_TEXTCTRL8, wxEmptyString, wxPoint(456,72), wxSize(100,320), wxTE_MULTILINE, wxDefaultValidator, _T("ID_TEXTCTRL8"));
-	wantedlist = new wxTextCtrl(this, ID_TEXTCTRL7, wxEmptyString, wxPoint(344,72), wxSize(100,320), wxTE_MULTILINE, wxDefaultValidator, _T("ID_TEXTCTRL7"));
-	usewantedlist = new wxRadioButton(this, ID_RADIOBUTTON1, _("Use wanted list"), wxPoint(648,136), wxDefaultSize, 0, wxDefaultValidator, _T("ID_RADIOBUTTON1"));
-	RadioButton2 = new wxRadioButton(this, ID_RADIOBUTTON2, _("Use ignore list"), wxPoint(648,168), wxDefaultSize, 0, wxDefaultValidator, _T("ID_RADIOBUTTON2"));
-	usemindistance = new wxRadioButton(this, ID_RADIOBUTTON3, _("Min. distance km. :"), wxPoint(648,200), wxDefaultSize, 0, wxDefaultValidator, _T("ID_RADIOBUTTON3"));
-	mindistance = new wxTextCtrl(this, ID_TEXTCTRL9, _("700"), wxPoint(800,192), wxDefaultSize, 0, wxDefaultValidator, _T("ID_TEXTCTRL9"));
-	StaticText6 = new wxStaticText(this, ID_STATICTEXT6, _("Wanted prefixes"), wxPoint(344,48), wxDefaultSize, 0, _T("ID_STATICTEXT6"));
-	StaticText7 = new wxStaticText(this, ID_STATICTEXT7, _("Ignored prefixes"), wxPoint(456,48), wxDefaultSize, 0, _T("ID_STATICTEXT7"));
-	usecq = new wxRadioButton(this, ID_RADIOBUTTON4, _("All CQ\'s"), wxPoint(648,72), wxDefaultSize, 0, wxDefaultValidator, _T("ID_RADIOBUTTON4"));
+	wantedloc = new wxTextCtrl(this, ID_TEXTCTRL10, wxEmptyString, wxPoint(520,72), wxSize(80,368), wxTE_MULTILINE, wxDefaultValidator, _T("ID_TEXTCTRL10"));
+	ignorelist = new wxTextCtrl(this, ID_TEXTCTRL8, wxEmptyString, wxPoint(432,72), wxSize(80,368), wxTE_MULTILINE, wxDefaultValidator, _T("ID_TEXTCTRL8"));
+	wantedlist = new wxTextCtrl(this, ID_TEXTCTRL7, wxEmptyString, wxPoint(344,72), wxSize(80,368), wxTE_MULTILINE, wxDefaultValidator, _T("ID_TEXTCTRL7"));
+	usewantedlist = new wxRadioButton(this, ID_RADIOBUTTON1, _("Use wanted list"), wxPoint(616,200), wxDefaultSize, 0, wxDefaultValidator, _T("ID_RADIOBUTTON1"));
+	RadioButton2 = new wxRadioButton(this, ID_RADIOBUTTON2, _("Use ignore list"), wxPoint(616,224), wxDefaultSize, 0, wxDefaultValidator, _T("ID_RADIOBUTTON2"));
+	usemindistance = new wxRadioButton(this, ID_RADIOBUTTON3, _("Min. distance km. :"), wxPoint(616,272), wxDefaultSize, 0, wxDefaultValidator, _T("ID_RADIOBUTTON3"));
+	mindistance = new wxTextCtrl(this, ID_TEXTCTRL9, _("700"), wxPoint(768,264), wxSize(48,32), 0, wxDefaultValidator, _T("ID_TEXTCTRL9"));
+	StaticText6 = new wxStaticText(this, ID_STATICTEXT6, _("Wanted pref."), wxPoint(344,48), wxDefaultSize, 0, _T("ID_STATICTEXT6"));
+	StaticText7 = new wxStaticText(this, ID_STATICTEXT7, _("Ignored pref."), wxPoint(432,48), wxDefaultSize, 0, _T("ID_STATICTEXT7"));
+	usecq = new wxRadioButton(this, ID_RADIOBUTTON4, _("All CQ\'s"), wxPoint(616,152), wxDefaultSize, 0, wxDefaultValidator, _T("ID_RADIOBUTTON4"));
 	usecq->SetValue(true);
-	usecq73 = new wxRadioButton(this, ID_RADIOBUTTON5, _("CQ && 73"), wxPoint(648,104), wxDefaultSize, 0, wxDefaultValidator, _T("ID_RADIOBUTTON5"));
+	usecq73 = new wxRadioButton(this, ID_RADIOBUTTON5, _("CQ && 73"), wxPoint(616,176), wxDefaultSize, 0, wxDefaultValidator, _T("ID_RADIOBUTTON5"));
+	StaticText8 = new wxStaticText(this, ID_STATICTEXT8, _("Wanted LOC"), wxPoint(520,48), wxDefaultSize, 0, _T("ID_STATICTEXT8"));
+	RadioButton1 = new wxRadioButton(this, ID_RADIOBUTTON6, _("Use wanted LOC"), wxPoint(616,248), wxDefaultSize, 0, wxDefaultValidator, _T("ID_RADIOBUTTON6"));
+	pause = new wxToggleButton(this, ID_TOGGLEBUTTON1, _("Pause"), wxPoint(768,88), wxSize(192,33), 0, wxDefaultValidator, _T("ID_TOGGLEBUTTON1"));
 
 	Connect(ID_BUTTON5,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&mainwindow::OnButton1Click);
 	Connect(ID_BUTTON1,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&mainwindow::OnButton1Click);
@@ -164,10 +177,6 @@ void mainwindow::BuildContent()
 
     SetMenuBar(pMenuBar);
     pMenuBar->Show();
-
-
-
-
 }
 
 mainwindow::~mainwindow()
@@ -176,7 +185,10 @@ mainwindow::~mainwindow()
 	//*)
     std::cout << "Logged QSO's : " << worked.size();std::cout << std::endl;
     std::cout << "Saving ..." << std::endl;
-
+    std::cout << "Saving wantedprefs.txt\n";
+    wantedlist->SaveFile("wantedprefs.txt");
+    ignorelist->SaveFile("ignorelist.txt");
+    wantedloc->SaveFile("wantedlocs.txt");
     std::ofstream output ("worked.dat", std::fstream::trunc | std::fstream::binary);
     output.write (reinterpret_cast<const char *>(&worked[0]), worked.size() * sizeof (Worked));
     output.close ();
@@ -272,6 +284,16 @@ bool    qsobefore (Worked *w)
         }
     }
     return false;
+}
+
+void    saverecord2file (Worked *w)
+{
+
+    std::ofstream output ("worked.dat", std::ios_base::app | std::fstream::binary);
+    output.write (reinterpret_cast<const char *>(w), sizeof (Worked));
+    output.close ();
+
+
 }
 
 void mainwindow::processPacket (void)
@@ -403,7 +425,7 @@ void mainwindow::processPacket (void)
                         else
                         {
                             decodes->SetBackgroundColour (*wxGREEN);
-                            if  (!qsorunning && strlen (w.dxcall) > 3) // check for CQ DX etc...
+                            if  (!qsorunning && strlen (w.dxcall) > 3 && !pause->GetValue()) // check for CQ DX etc...
                             {
                                 qsorunning = true;
                                 log->AppendText(wxString::Format(wxT("Calling [ %s ] ...\n"),w.dxcall));
@@ -465,6 +487,7 @@ void mainwindow::processPacket (void)
                     memcpy (w.mode, ptr, len); // mode
                     ptr += len;
                     worked.push_back (w); // no check for dupes ?
+                    saverecord2file (&w);
                     sprintf (str,"Logged QSO : Call %s Frequency %.3f Mode %s\n", w.dxcall, w.freq / 1e6, w.mode);
                     log->AppendText(str);
                     qsotimer->Stop();
@@ -495,5 +518,9 @@ void mainwindow::OnButton1Click1(wxCommandEvent& event)
 
 
 void mainwindow::OnRadioButton3Select(wxCommandEvent& event)
+{
+}
+
+void mainwindow::OnpauseClick(wxCommandEvent& event)
 {
 }

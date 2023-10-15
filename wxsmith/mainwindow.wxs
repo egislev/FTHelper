@@ -104,12 +104,12 @@
 				<item>5</item>
 			</content>
 			<selection>1</selection>
-			<pos>344,408</pos>
+			<pos>760,224</pos>
 			<size>56,32</size>
 		</object>
 		<object class="wxStaticText" name="ID_STATICTEXT5" variable="StaticText5" member="yes">
 			<label>TX timeout in min.</label>
-			<pos>408,416</pos>
+			<pos>632,232</pos>
 		</object>
 		<object class="wxButton" name="ID_BUTTON4" variable="Button1" member="yes">
 			<label>Clear decodes</label>
@@ -121,49 +121,62 @@
 			<checked>1</checked>
 			<pos>152,456</pos>
 		</object>
+		<object class="wxTextCtrl" name="ID_TEXTCTRL10" variable="TextCtrl1" member="yes">
+			<pos>520,72</pos>
+			<size>80,368</size>
+			<style>wxTE_MULTILINE</style>
+		</object>
 		<object class="wxTextCtrl" name="ID_TEXTCTRL8" variable="ignorelist" member="yes">
-			<pos>456,72</pos>
-			<size>100,320</size>
+			<pos>432,72</pos>
+			<size>80,368</size>
 			<style>wxTE_MULTILINE</style>
 		</object>
 		<object class="wxTextCtrl" name="ID_TEXTCTRL7" variable="wantedlist" member="yes">
 			<pos>344,72</pos>
-			<size>100,320</size>
+			<size>80,368</size>
 			<style>wxTE_MULTILINE</style>
 		</object>
 		<object class="wxRadioButton" name="ID_RADIOBUTTON1" variable="usewantedlist" member="yes">
 			<label>Use wanted list</label>
-			<pos>648,136</pos>
+			<pos>608,120</pos>
 		</object>
 		<object class="wxRadioButton" name="ID_RADIOBUTTON2" variable="RadioButton2" member="yes">
 			<label>Use ignore list</label>
-			<pos>648,168</pos>
+			<pos>608,144</pos>
 		</object>
 		<object class="wxRadioButton" name="ID_RADIOBUTTON3" variable="usemindistance" member="yes">
 			<label>Min. distance km. :</label>
-			<pos>648,200</pos>
+			<pos>608,192</pos>
 			<handler function="OnRadioButton3Select" entry="EVT_RADIOBUTTON" />
 		</object>
 		<object class="wxTextCtrl" name="ID_TEXTCTRL9" variable="mindistance" member="yes">
 			<value>700</value>
-			<pos>800,192</pos>
+			<pos>760,184</pos>
 		</object>
 		<object class="wxStaticText" name="ID_STATICTEXT6" variable="StaticText6" member="yes">
-			<label>Wanted prefixes</label>
+			<label>Wanted pref.</label>
 			<pos>344,48</pos>
 		</object>
 		<object class="wxStaticText" name="ID_STATICTEXT7" variable="StaticText7" member="yes">
-			<label>Ignored prefixes</label>
-			<pos>456,48</pos>
+			<label>Ignored pref.</label>
+			<pos>432,48</pos>
 		</object>
 		<object class="wxRadioButton" name="ID_RADIOBUTTON4" variable="usecq" member="yes">
 			<label>All CQ&apos;s</label>
 			<selected>1</selected>
-			<pos>648,72</pos>
+			<pos>608,72</pos>
 		</object>
 		<object class="wxRadioButton" name="ID_RADIOBUTTON5" variable="usecq73" member="yes">
 			<label>CQ &amp;&amp; 73</label>
-			<pos>648,104</pos>
+			<pos>608,96</pos>
+		</object>
+		<object class="wxStaticText" name="ID_STATICTEXT8" variable="StaticText8" member="yes">
+			<label>Wanted LOC</label>
+			<pos>520,48</pos>
+		</object>
+		<object class="wxRadioButton" name="ID_RADIOBUTTON6" variable="RadioButton1" member="yes">
+			<label>Use wanted LOC</label>
+			<pos>608,168</pos>
 		</object>
 	</object>
 </wxsmith>
