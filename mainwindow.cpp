@@ -3,6 +3,7 @@
 #include "mainwindow.h"
 #include "fthelper.h"
 
+
 //(*InternalHeaders(mainwindow)
 #include <wx/font.h>
 #include <wx/intl.h>
