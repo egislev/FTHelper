@@ -19,43 +19,43 @@
 		</object>
 		<object class="wxStaticText" name="ID_STATICTEXT3" variable="StaticText3" member="yes">
 			<label>Listen IP</label>
-			<pos>8,16</pos>
+			<pos>8,8</pos>
 		</object>
 		<object class="wxStaticText" name="ID_STATICTEXT2" variable="StaticText2" member="yes">
 			<label>Forward IP</label>
-			<pos>328,16</pos>
+			<pos>328,8</pos>
 		</object>
 		<object class="wxStaticText" name="ID_STATICTEXT4" variable="StaticText4" member="yes">
 			<label>Listen port</label>
-			<pos>200,16</pos>
+			<pos>200,8</pos>
 		</object>
 		<object class="wxStaticText" name="ID_STATICTEXT1" variable="StaticText1" member="yes">
 			<label>Forward port</label>
-			<pos>536,16</pos>
+			<pos>536,8</pos>
 		</object>
 		<object class="wxTextCtrl" name="ID_TEXTCTRL2" variable="listenip" member="yes">
 			<value>127.0.0.1</value>
 			<pos>64,8</pos>
-			<size>130,32</size>
+			<size>130,24</size>
 		</object>
 		<object class="wxTextCtrl" name="ID_TEXTCTRL4" variable="listenport" member="yes">
 			<value>2237</value>
 			<pos>272,8</pos>
-			<size>50,32</size>
+			<size>50,24</size>
 		</object>
 		<object class="wxTextCtrl" name="ID_TEXTCTRL1" variable="sendip" member="yes">
 			<value>127.0.0.1</value>
 			<pos>400,8</pos>
-			<size>130,32</size>
+			<size>130,24</size>
 		</object>
 		<object class="wxTextCtrl" name="ID_TEXTCTRL3" variable="sendport" member="yes">
 			<value>2277</value>
 			<pos>624,8</pos>
-			<size>50,32</size>
+			<size>50,24</size>
 		</object>
 		<object class="wxCheckBox" name="ID_CHECKBOX1" variable="fwen" member="yes">
 			<label>Enabled</label>
-			<pos>680,16</pos>
+			<pos>680,8</pos>
 		</object>
 		<object class="wxTextCtrl" name="ID_TEXTCTRL5" variable="log" member="yes">
 			<pos>8,488</pos>
@@ -68,20 +68,7 @@
 				<family>default</family>
 				<face>Nimbus Roman</face>
 			</font>
-			<style>wxTE_MULTILINE|wxTE_READONLY|wxTE_DONTWRAP|wxBORDER_DOUBLE</style>
-		</object>
-		<object class="wxTextCtrl" name="ID_TEXTCTRL6" variable="decodes" member="yes">
-			<pos>8,48</pos>
-			<size>312,392</size>
-			<font>
-				<size>10</size>
-				<style>normal</style>
-				<weight>bold</weight>
-				<underlined>0</underlined>
-				<face>Nimbus Roman</face>
-				<sysfont>wxSYS_OEM_FIXED_FONT</sysfont>
-			</font>
-			<style>wxTE_MULTILINE|wxTE_READONLY|wxTE_DONTWRAP|wxBORDER_SIMPLE|wxBORDER_DOUBLE</style>
+			<style>wxTE_MULTILINE|wxTE_READONLY|wxTE_DONTWRAP</style>
 		</object>
 		<object class="wxButton" name="ID_BUTTON2" variable="decodingact" member="yes">
 			<label>Decoding</label>
@@ -121,7 +108,7 @@
 			<checked>1</checked>
 			<pos>152,456</pos>
 		</object>
-		<object class="wxTextCtrl" name="ID_TEXTCTRL10" variable="TextCtrl1" member="yes">
+		<object class="wxTextCtrl" name="ID_TEXTCTRL10" variable="wantedloc" member="yes">
 			<pos>520,72</pos>
 			<size>80,368</size>
 			<style>wxTE_MULTILINE</style>
@@ -151,7 +138,8 @@
 		</object>
 		<object class="wxTextCtrl" name="ID_TEXTCTRL9" variable="mindistance" member="yes">
 			<value>700</value>
-			<pos>760,184</pos>
+			<pos>760,192</pos>
+			<size>97,24</size>
 		</object>
 		<object class="wxStaticText" name="ID_STATICTEXT6" variable="StaticText6" member="yes">
 			<label>Wanted pref.</label>
@@ -177,6 +165,24 @@
 		<object class="wxRadioButton" name="ID_RADIOBUTTON6" variable="RadioButton1" member="yes">
 			<label>Use wanted LOC</label>
 			<pos>608,168</pos>
+		</object>
+		<object class="wxToggleButton" name="ID_TOGGLEBUTTON1" variable="pause" member="yes">
+			<label>Pause</label>
+			<pos>768,88</pos>
+			<size>192,33</size>
+		</object>
+		<object class="wxListView" name="ID_LISTVIEW1" variable="decodeslist" member="yes">
+			<pos>8,48</pos>
+			<size>296,384</size>
+			<font>
+				<size>10</size>
+				<style>normal</style>
+				<weight>bold</weight>
+				<underlined>0</underlined>
+				<family>default</family>
+				<face>Nimbus Roman</face>
+			</font>
+			<style>wxLC_REPORT|wxLC_NO_HEADER</style>
 		</object>
 	</object>
 </wxsmith>

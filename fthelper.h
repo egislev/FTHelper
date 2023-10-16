@@ -8,9 +8,9 @@
 
 struct Worked
 {
-        char        dxcall[16];
-        char        mode[8];
-        unsigned long    freq;
+        char            dxcall[16];
+        char            mode[8];
+        unsigned long   freq;
 
 };
 #endif

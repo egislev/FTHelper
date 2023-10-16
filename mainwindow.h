@@ -6,8 +6,8 @@
 #include <wx/checkbox.h>
 #include <wx/choice.h>
 #include <wx/frame.h>
+#include <wx/listctrl.h>
 #include <wx/radiobut.h>
-#include <wx/statbox.h>
 #include <wx/stattext.h>
 #include <wx/textctrl.h>
 #include <wx/tglbtn.h>
@@ -39,13 +39,13 @@ class mainwindow: public wxFrame
 		wxCheckBox* fwen;
 		wxCheckBox* onlycq;
 		wxChoice* txtimeout;
+		wxListView* decodeslist;
 		wxRadioButton* RadioButton1;
 		wxRadioButton* RadioButton2;
 		wxRadioButton* usecq73;
 		wxRadioButton* usecq;
 		wxRadioButton* usemindistance;
 		wxRadioButton* usewantedlist;
-		wxStaticBox* StaticBox1;
 		wxStaticText* StaticText1;
 		wxStaticText* StaticText2;
 		wxStaticText* StaticText3;
@@ -54,7 +54,6 @@ class mainwindow: public wxFrame
 		wxStaticText* StaticText6;
 		wxStaticText* StaticText7;
 		wxStaticText* StaticText8;
-		wxTextCtrl* decodes;
 		wxTextCtrl* ignorelist;
 		wxTextCtrl* listenip;
 		wxTextCtrl* listenport;
@@ -70,7 +69,6 @@ class mainwindow: public wxFrame
 	protected:
 
 		//(*Identifiers(mainwindow)
-		static const long ID_STATICBOX1;
 		static const long ID_BUTTON5;
 		static const long ID_BUTTON1;
 		static const long ID_STATICTEXT3;
@@ -83,7 +81,6 @@ class mainwindow: public wxFrame
 		static const long ID_TEXTCTRL3;
 		static const long ID_CHECKBOX1;
 		static const long ID_TEXTCTRL5;
-		static const long ID_TEXTCTRL6;
 		static const long ID_BUTTON2;
 		static const long ID_BUTTON3;
 		static const long ID_CHOICE1;
@@ -104,6 +101,7 @@ class mainwindow: public wxFrame
 		static const long ID_STATICTEXT8;
 		static const long ID_RADIOBUTTON6;
 		static const long ID_TOGGLEBUTTON1;
+		static const long ID_LISTVIEW1;
 		//*)
 		static const long SOCKET_ID;
 		static const long TIMER_ID;
@@ -118,6 +116,7 @@ class mainwindow: public wxFrame
 		void OnpauseClick(wxCommandEvent& event);
 		//*)
         void OnSocketEvent(wxSocketEvent& event);
+        void addlinetolist (int32_t ,int ,unsigned char *, unsigned char *, unsigned char *, unsigned char *);
 	protected:
 
 		void BuildContent();
