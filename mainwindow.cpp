@@ -51,7 +51,7 @@ const long mainwindow::ID_RADIOBUTTON5 = wxNewId();
 const long mainwindow::ID_STATICTEXT8 = wxNewId();
 const long mainwindow::ID_RADIOBUTTON6 = wxNewId();
 const long mainwindow::ID_TOGGLEBUTTON1 = wxNewId();
-const long mainwindow::ID_LISTVIEW1 = wxNewId();
+const long mainwindow::ID_LISTCTRL1 = wxNewId();
 //*)
 const long mainwindow::SOCKET_ID = wxNewId();
 const long mainwindow::TIMER_ID = wxNewId();
@@ -128,24 +128,30 @@ void mainwindow::BuildContent()
 	Button1 = new wxButton(this, ID_BUTTON4, _("Clear decodes"), wxPoint(8,448), wxDefaultSize, 0, wxDefaultValidator, _T("ID_BUTTON4"));
 	onlycq = new wxCheckBox(this, ID_CHECKBOX2, _("Show only CQ decodes"), wxPoint(152,456), wxDefaultSize, 0, wxDefaultValidator, _T("ID_CHECKBOX2"));
 	onlycq->SetValue(true);
-	wantedloc = new wxTextCtrl(this, ID_TEXTCTRL10, wxEmptyString, wxPoint(520,72), wxSize(80,368), wxTE_MULTILINE, wxDefaultValidator, _T("ID_TEXTCTRL10"));
-	ignorelist = new wxTextCtrl(this, ID_TEXTCTRL8, wxEmptyString, wxPoint(432,72), wxSize(80,368), wxTE_MULTILINE, wxDefaultValidator, _T("ID_TEXTCTRL8"));
-	wantedlist = new wxTextCtrl(this, ID_TEXTCTRL7, wxEmptyString, wxPoint(344,72), wxSize(80,368), wxTE_MULTILINE, wxDefaultValidator, _T("ID_TEXTCTRL7"));
+	wantedloc = new wxTextCtrl(this, ID_TEXTCTRL10, wxEmptyString, wxPoint(544,72), wxSize(60,370), wxTE_MULTILINE, wxDefaultValidator, _T("ID_TEXTCTRL10"));
+	ignorelist = new wxTextCtrl(this, ID_TEXTCTRL8, wxEmptyString, wxPoint(472,72), wxSize(60,370), wxTE_MULTILINE, wxDefaultValidator, _T("ID_TEXTCTRL8"));
+	wantedlist = new wxTextCtrl(this, ID_TEXTCTRL7, wxEmptyString, wxPoint(400,72), wxSize(60,370), wxTE_MULTILINE, wxDefaultValidator, _T("ID_TEXTCTRL7"));
 	usewantedlist = new wxRadioButton(this, ID_RADIOBUTTON1, _("Use wanted list"), wxPoint(608,120), wxDefaultSize, 0, wxDefaultValidator, _T("ID_RADIOBUTTON1"));
 	RadioButton2 = new wxRadioButton(this, ID_RADIOBUTTON2, _("Use ignore list"), wxPoint(608,144), wxDefaultSize, 0, wxDefaultValidator, _T("ID_RADIOBUTTON2"));
 	usemindistance = new wxRadioButton(this, ID_RADIOBUTTON3, _("Min. distance km. :"), wxPoint(608,192), wxDefaultSize, 0, wxDefaultValidator, _T("ID_RADIOBUTTON3"));
 	mindistance = new wxTextCtrl(this, ID_TEXTCTRL9, _("700"), wxPoint(760,192), wxSize(97,24), 0, wxDefaultValidator, _T("ID_TEXTCTRL9"));
-	StaticText6 = new wxStaticText(this, ID_STATICTEXT6, _("Wanted pref."), wxPoint(344,48), wxDefaultSize, 0, _T("ID_STATICTEXT6"));
-	StaticText7 = new wxStaticText(this, ID_STATICTEXT7, _("Ignored pref."), wxPoint(432,48), wxDefaultSize, 0, _T("ID_STATICTEXT7"));
+	StaticText6 = new wxStaticText(this, ID_STATICTEXT6, _("Wanted DX"), wxPoint(400,48), wxSize(72,19), 0, _T("ID_STATICTEXT6"));
+	wxFont StaticText6Font(8,wxFONTFAMILY_SWISS,wxFONTSTYLE_NORMAL,wxFONTWEIGHT_NORMAL,false,_T("Sans"),wxFONTENCODING_DEFAULT);
+	StaticText6->SetFont(StaticText6Font);
+	StaticText7 = new wxStaticText(this, ID_STATICTEXT7, _("Ignored DX"), wxPoint(472,48), wxSize(72,19), 0, _T("ID_STATICTEXT7"));
+	wxFont StaticText7Font(8,wxFONTFAMILY_SWISS,wxFONTSTYLE_NORMAL,wxFONTWEIGHT_NORMAL,false,_T("Sans"),wxFONTENCODING_DEFAULT);
+	StaticText7->SetFont(StaticText7Font);
 	usecq = new wxRadioButton(this, ID_RADIOBUTTON4, _("All CQ\'s"), wxPoint(608,72), wxDefaultSize, 0, wxDefaultValidator, _T("ID_RADIOBUTTON4"));
 	usecq->SetValue(true);
 	usecq73 = new wxRadioButton(this, ID_RADIOBUTTON5, _("CQ && 73"), wxPoint(608,96), wxDefaultSize, 0, wxDefaultValidator, _T("ID_RADIOBUTTON5"));
-	StaticText8 = new wxStaticText(this, ID_STATICTEXT8, _("Wanted LOC"), wxPoint(520,48), wxDefaultSize, 0, _T("ID_STATICTEXT8"));
+	StaticText8 = new wxStaticText(this, ID_STATICTEXT8, _("Wanted LOC"), wxPoint(544,48), wxSize(72,19), 0, _T("ID_STATICTEXT8"));
+	wxFont StaticText8Font(8,wxFONTFAMILY_SWISS,wxFONTSTYLE_NORMAL,wxFONTWEIGHT_NORMAL,false,_T("Sans"),wxFONTENCODING_DEFAULT);
+	StaticText8->SetFont(StaticText8Font);
 	RadioButton1 = new wxRadioButton(this, ID_RADIOBUTTON6, _("Use wanted LOC"), wxPoint(608,168), wxDefaultSize, 0, wxDefaultValidator, _T("ID_RADIOBUTTON6"));
 	pause = new wxToggleButton(this, ID_TOGGLEBUTTON1, _("Pause"), wxPoint(768,88), wxSize(192,33), 0, wxDefaultValidator, _T("ID_TOGGLEBUTTON1"));
-	decodeslist = new wxListView(this, ID_LISTVIEW1, wxPoint(8,48), wxSize(296,384), wxLC_REPORT|wxLC_NO_HEADER, wxDefaultValidator, _T("ID_LISTVIEW1"));
-	wxFont decodeslistFont(10,wxFONTFAMILY_DEFAULT,wxFONTSTYLE_NORMAL,wxFONTWEIGHT_BOLD,false,_T("Nimbus Roman"),wxFONTENCODING_DEFAULT);
-	decodeslist->SetFont(decodeslistFont);
+	decodesList = new wxListCtrl(this, ID_LISTCTRL1, wxPoint(16,48), wxSize(370,390), wxLC_REPORT|wxLC_NO_HEADER, wxDefaultValidator, _T("ID_LISTCTRL1"));
+	wxFont decodesListFont(10,wxFONTFAMILY_DEFAULT,wxFONTSTYLE_NORMAL,wxFONTWEIGHT_BOLD,false,_T("Nimbus Roman"),wxFONTENCODING_DEFAULT);
+	decodesList->SetFont(decodesListFont);
 
 	Connect(ID_BUTTON5,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&mainwindow::OnButton1Click);
 	Connect(ID_BUTTON1,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&mainwindow::OnButton1Click);
@@ -153,17 +159,18 @@ void mainwindow::BuildContent()
 	Connect(ID_RADIOBUTTON3,wxEVT_COMMAND_RADIOBUTTON_SELECTED,(wxObjectEventFunction)&mainwindow::OnRadioButton3Select);
 	//*)
 
-
-	decodeslist->AppendColumn ("dB", wxLIST_FORMAT_RIGHT);
-	decodeslist->AppendColumn ("", wxLIST_FORMAT_RIGHT);
-	decodeslist->AppendColumn ("", wxLIST_FORMAT_RIGHT);
-	decodeslist->AppendColumn ("", wxLIST_FORMAT_LEFT);
-	decodeslist->AppendColumn ("Loc", wxLIST_FORMAT_RIGHT);
-	decodeslist->SetColumnWidth(0, 35); // db
-    decodeslist->SetColumnWidth(1, 35); // CQ
-    decodeslist->SetColumnWidth(2, 30); // DX
-    decodeslist->SetColumnWidth(3, 145); // msg
-    decodeslist->SetColumnWidth(4, 50); // Grid
+	decodesList->AppendColumn ("---", wxLIST_FORMAT_RIGHT);
+	decodesList->AppendColumn ("dB", wxLIST_FORMAT_RIGHT);
+	decodesList->AppendColumn ("", wxLIST_FORMAT_RIGHT);
+	decodesList->AppendColumn ("", wxLIST_FORMAT_RIGHT);
+	decodesList->AppendColumn ("", wxLIST_FORMAT_LEFT);
+	decodesList->AppendColumn ("Loc", wxLIST_FORMAT_RIGHT);
+	decodesList->SetColumnWidth(0, 40); // db
+	decodesList->SetColumnWidth(1, 35); // db
+    decodesList->SetColumnWidth(2, 35); // CQ
+    decodesList->SetColumnWidth(3, 30); // DX
+    decodesList->SetColumnWidth(4, 185); // msg
+    decodesList->SetColumnWidth(5, 50); // Grid
 
     SetLabel ("FT helper v1.01");
     CreateStatusBar ();
@@ -299,20 +306,24 @@ void    saverecord2file (Worked *w)
 void    mainwindow::addlinetolist (int32_t snr,int vals, unsigned char *s1, unsigned char *s2, unsigned char *s3, unsigned char *s4)
 {
     if  (onlycq->IsChecked() && s1[0] == 'C' && s1[1] == 'Q')   {
-        decodeslist->InsertItem (decodedlines, 1);
-        decodeslist->SetItem (decodedlines, 0, wxString::Format(wxT("%i"), (char)snr));
-        decodeslist->SetItem (decodedlines, 1, s1);
+        decodesList->InsertItem (decodedlines, 1);
+        decodesList->SetItem (decodedlines, 0, "+++");
+        decodesList->SetItem (decodedlines, 1, wxString::Format(wxT("%i"), (char)snr));
+        decodesList->SetItem (decodedlines, 2, s1);
         if  (vals == 4) // CQ DX AA1AAA AA11
         {
-            decodeslist->SetItem (decodedlines, 2, s2);
-            decodeslist->SetItem (decodedlines, 3, s3);
-            decodeslist->SetItem (decodedlines, 4, s4);
+            decodesList->SetItem (decodedlines, 3, s2);
+            decodesList->SetItem (decodedlines, 4, s3);
+            decodesList->SetItem (decodedlines, 5, s4);
         } else // CQ AA1AAA AA11
         {
-            decodeslist->SetItem (decodedlines, 3, s2);
-            decodeslist->SetItem (decodedlines, 4, s3);
+            decodesList->SetItem (decodedlines, 4, s2);
+            decodesList->SetItem (decodedlines, 5, s3);
         }
-        decodeslist->Focus (decodedlines++);
+//        decodesList->SetFocus ();
+//        decodesList->SetItemState(decodedlines, 0, wxLIST_STATE_SELECTED|wxLIST_STATE_FOCUSED);
+        decodesList->EnsureVisible (decodedlines); //SetItemState(decodedlines, wxLIST_STATE_SELECTED, wxLIST_STATE_SELECTED);
+        decodedlines++;
     }
 }
 

@@ -109,18 +109,18 @@
 			<pos>152,456</pos>
 		</object>
 		<object class="wxTextCtrl" name="ID_TEXTCTRL10" variable="wantedloc" member="yes">
-			<pos>520,72</pos>
-			<size>80,368</size>
+			<pos>544,72</pos>
+			<size>60,370</size>
 			<style>wxTE_MULTILINE</style>
 		</object>
 		<object class="wxTextCtrl" name="ID_TEXTCTRL8" variable="ignorelist" member="yes">
-			<pos>432,72</pos>
-			<size>80,368</size>
+			<pos>472,72</pos>
+			<size>60,370</size>
 			<style>wxTE_MULTILINE</style>
 		</object>
 		<object class="wxTextCtrl" name="ID_TEXTCTRL7" variable="wantedlist" member="yes">
-			<pos>344,72</pos>
-			<size>80,368</size>
+			<pos>400,72</pos>
+			<size>60,370</size>
 			<style>wxTE_MULTILINE</style>
 		</object>
 		<object class="wxRadioButton" name="ID_RADIOBUTTON1" variable="usewantedlist" member="yes">
@@ -142,12 +142,30 @@
 			<size>97,24</size>
 		</object>
 		<object class="wxStaticText" name="ID_STATICTEXT6" variable="StaticText6" member="yes">
-			<label>Wanted pref.</label>
-			<pos>344,48</pos>
+			<label>Wanted DX</label>
+			<pos>400,48</pos>
+			<size>72,19</size>
+			<font>
+				<size>8</size>
+				<style>normal</style>
+				<weight>normal</weight>
+				<underlined>0</underlined>
+				<family>swiss</family>
+				<face>Sans</face>
+			</font>
 		</object>
 		<object class="wxStaticText" name="ID_STATICTEXT7" variable="StaticText7" member="yes">
-			<label>Ignored pref.</label>
-			<pos>432,48</pos>
+			<label>Ignored DX</label>
+			<pos>472,48</pos>
+			<size>72,19</size>
+			<font>
+				<size>8</size>
+				<style>normal</style>
+				<weight>normal</weight>
+				<underlined>0</underlined>
+				<family>swiss</family>
+				<face>Sans</face>
+			</font>
 		</object>
 		<object class="wxRadioButton" name="ID_RADIOBUTTON4" variable="usecq" member="yes">
 			<label>All CQ&apos;s</label>
@@ -160,7 +178,16 @@
 		</object>
 		<object class="wxStaticText" name="ID_STATICTEXT8" variable="StaticText8" member="yes">
 			<label>Wanted LOC</label>
-			<pos>520,48</pos>
+			<pos>544,48</pos>
+			<size>72,19</size>
+			<font>
+				<size>8</size>
+				<style>normal</style>
+				<weight>normal</weight>
+				<underlined>0</underlined>
+				<family>swiss</family>
+				<face>Sans</face>
+			</font>
 		</object>
 		<object class="wxRadioButton" name="ID_RADIOBUTTON6" variable="RadioButton1" member="yes">
 			<label>Use wanted LOC</label>
@@ -171,9 +198,9 @@
 			<pos>768,88</pos>
 			<size>192,33</size>
 		</object>
-		<object class="wxListView" name="ID_LISTVIEW1" variable="decodeslist" member="yes">
-			<pos>8,48</pos>
-			<size>296,384</size>
+		<object class="wxListCtrl" name="ID_LISTCTRL1" variable="decodesList" member="yes">
+			<pos>16,48</pos>
+			<size>370,390</size>
 			<font>
 				<size>10</size>
 				<style>normal</style>

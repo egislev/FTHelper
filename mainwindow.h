@@ -39,7 +39,7 @@ class mainwindow: public wxFrame
 		wxCheckBox* fwen;
 		wxCheckBox* onlycq;
 		wxChoice* txtimeout;
-		wxListView* decodeslist;
+		wxListCtrl* decodesList;
 		wxRadioButton* RadioButton1;
 		wxRadioButton* RadioButton2;
 		wxRadioButton* usecq73;
@@ -101,7 +101,7 @@ class mainwindow: public wxFrame
 		static const long ID_STATICTEXT8;
 		static const long ID_RADIOBUTTON6;
 		static const long ID_TOGGLEBUTTON1;
-		static const long ID_LISTVIEW1;
+		static const long ID_LISTCTRL1;
 		//*)
 		static const long SOCKET_ID;
 		static const long TIMER_ID;
