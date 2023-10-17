@@ -1727,7 +1727,7 @@
 	<wx/stattext.h>
 	<wx/textctrl.h>
 
-1697495480 /home/egis/HAM/FTHelper/mainwindow.h
+1697547267 /home/egis/HAM/FTHelper/mainwindow.h
 	<wx/button.h>
 	<wx/checkbox.h>
 	<wx/choice.h>
@@ -1741,7 +1741,7 @@
 	<wx/timer.h>
 	"fthelper.h"
 
-1697495829 source:/home/egis/HAM/FTHelper/mainwindow.cpp
+1697500989 source:/home/egis/HAM/FTHelper/mainwindow.cpp
 	<iostream>
 	<fstream>
 	"mainwindow.h"

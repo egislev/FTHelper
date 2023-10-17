@@ -116,7 +116,7 @@ class mainwindow: public wxFrame
 		void OnpauseClick(wxCommandEvent& event);
 		//*)
         void OnSocketEvent(wxSocketEvent& event);
-        void addlinetolist (int32_t ,int ,unsigned char *, unsigned char *, unsigned char *, unsigned char *);
+        void addlinetolist (int32_t, int, bool, uint32_t, unsigned char *, unsigned char *, unsigned char *, unsigned char *);
 	protected:
 
 		void BuildContent();

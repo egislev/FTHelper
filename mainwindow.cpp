@@ -126,15 +126,19 @@ void mainwindow::BuildContent()
 	txtimeout->Append(_("5"));
 	StaticText5 = new wxStaticText(this, ID_STATICTEXT5, _("TX timeout in min."), wxPoint(632,232), wxDefaultSize, 0, _T("ID_STATICTEXT5"));
 	Button1 = new wxButton(this, ID_BUTTON4, _("Clear decodes"), wxPoint(8,448), wxDefaultSize, 0, wxDefaultValidator, _T("ID_BUTTON4"));
-	onlycq = new wxCheckBox(this, ID_CHECKBOX2, _("Show only CQ decodes"), wxPoint(152,456), wxDefaultSize, 0, wxDefaultValidator, _T("ID_CHECKBOX2"));
+	onlycq = new wxCheckBox(this, ID_CHECKBOX2, _("Show only CQ decodes"), wxPoint(120,456), wxDefaultSize, 0, wxDefaultValidator, _T("ID_CHECKBOX2"));
 	onlycq->SetValue(true);
 	wantedloc = new wxTextCtrl(this, ID_TEXTCTRL10, wxEmptyString, wxPoint(544,72), wxSize(60,370), wxTE_MULTILINE, wxDefaultValidator, _T("ID_TEXTCTRL10"));
 	ignorelist = new wxTextCtrl(this, ID_TEXTCTRL8, wxEmptyString, wxPoint(472,72), wxSize(60,370), wxTE_MULTILINE, wxDefaultValidator, _T("ID_TEXTCTRL8"));
 	wantedlist = new wxTextCtrl(this, ID_TEXTCTRL7, wxEmptyString, wxPoint(400,72), wxSize(60,370), wxTE_MULTILINE, wxDefaultValidator, _T("ID_TEXTCTRL7"));
 	usewantedlist = new wxRadioButton(this, ID_RADIOBUTTON1, _("Use wanted list"), wxPoint(608,120), wxDefaultSize, 0, wxDefaultValidator, _T("ID_RADIOBUTTON1"));
+	usewantedlist->Disable();
 	RadioButton2 = new wxRadioButton(this, ID_RADIOBUTTON2, _("Use ignore list"), wxPoint(608,144), wxDefaultSize, 0, wxDefaultValidator, _T("ID_RADIOBUTTON2"));
+	RadioButton2->Disable();
 	usemindistance = new wxRadioButton(this, ID_RADIOBUTTON3, _("Min. distance km. :"), wxPoint(608,192), wxDefaultSize, 0, wxDefaultValidator, _T("ID_RADIOBUTTON3"));
+	usemindistance->Disable();
 	mindistance = new wxTextCtrl(this, ID_TEXTCTRL9, _("700"), wxPoint(760,192), wxSize(97,24), 0, wxDefaultValidator, _T("ID_TEXTCTRL9"));
+	mindistance->Disable();
 	StaticText6 = new wxStaticText(this, ID_STATICTEXT6, _("Wanted DX"), wxPoint(400,48), wxSize(72,19), 0, _T("ID_STATICTEXT6"));
 	wxFont StaticText6Font(8,wxFONTFAMILY_SWISS,wxFONTSTYLE_NORMAL,wxFONTWEIGHT_NORMAL,false,_T("Sans"),wxFONTENCODING_DEFAULT);
 	StaticText6->SetFont(StaticText6Font);
@@ -144,10 +148,12 @@ void mainwindow::BuildContent()
 	usecq = new wxRadioButton(this, ID_RADIOBUTTON4, _("All CQ\'s"), wxPoint(608,72), wxDefaultSize, 0, wxDefaultValidator, _T("ID_RADIOBUTTON4"));
 	usecq->SetValue(true);
 	usecq73 = new wxRadioButton(this, ID_RADIOBUTTON5, _("CQ && 73"), wxPoint(608,96), wxDefaultSize, 0, wxDefaultValidator, _T("ID_RADIOBUTTON5"));
+	usecq73->Disable();
 	StaticText8 = new wxStaticText(this, ID_STATICTEXT8, _("Wanted LOC"), wxPoint(544,48), wxSize(72,19), 0, _T("ID_STATICTEXT8"));
 	wxFont StaticText8Font(8,wxFONTFAMILY_SWISS,wxFONTSTYLE_NORMAL,wxFONTWEIGHT_NORMAL,false,_T("Sans"),wxFONTENCODING_DEFAULT);
 	StaticText8->SetFont(StaticText8Font);
 	RadioButton1 = new wxRadioButton(this, ID_RADIOBUTTON6, _("Use wanted LOC"), wxPoint(608,168), wxDefaultSize, 0, wxDefaultValidator, _T("ID_RADIOBUTTON6"));
+	RadioButton1->Disable();
 	pause = new wxToggleButton(this, ID_TOGGLEBUTTON1, _("Pause"), wxPoint(768,88), wxSize(192,33), 0, wxDefaultValidator, _T("ID_TOGGLEBUTTON1"));
 	decodesList = new wxListCtrl(this, ID_LISTCTRL1, wxPoint(16,48), wxSize(370,390), wxLC_REPORT|wxLC_NO_HEADER, wxDefaultValidator, _T("ID_LISTCTRL1"));
 	wxFont decodesListFont(10,wxFONTFAMILY_DEFAULT,wxFONTSTYLE_NORMAL,wxFONTWEIGHT_BOLD,false,_T("Nimbus Roman"),wxFONTENCODING_DEFAULT);
@@ -159,17 +165,21 @@ void mainwindow::BuildContent()
 	Connect(ID_RADIOBUTTON3,wxEVT_COMMAND_RADIOBUTTON_SELECTED,(wxObjectEventFunction)&mainwindow::OnRadioButton3Select);
 	//*)
 
-	decodesList->AppendColumn ("---", wxLIST_FORMAT_RIGHT);
+	decodesList->AppendColumn ("------", wxLIST_FORMAT_RIGHT);
 	decodesList->AppendColumn ("dB", wxLIST_FORMAT_RIGHT);
 	decodesList->AppendColumn ("", wxLIST_FORMAT_RIGHT);
 	decodesList->AppendColumn ("", wxLIST_FORMAT_RIGHT);
 	decodesList->AppendColumn ("", wxLIST_FORMAT_LEFT);
 	decodesList->AppendColumn ("Loc", wxLIST_FORMAT_RIGHT);
-	decodesList->SetColumnWidth(0, 40); // db
-	decodesList->SetColumnWidth(1, 35); // db
-    decodesList->SetColumnWidth(2, 35); // CQ
-    decodesList->SetColumnWidth(3, 30); // DX
-    decodesList->SetColumnWidth(4, 185); // msg
+	decodesList->SetColumnWidth(0, 55);
+	decodesList->SetColumnWidth(1, 35);
+    decodesList->SetColumnWidth(2, 35);
+    decodesList->SetColumnWidth(3, 35);
+#ifdef __WXMSW__
+    decodesList->SetColumnWidth(4, 145); // msg
+#else
+    decodesList->SetColumnWidth(4, 165); // msg
+#endif
     decodesList->SetColumnWidth(5, 50); // Grid
 
     SetLabel ("FT helper v1.01");
@@ -303,11 +313,15 @@ void    saverecord2file (Worked *w)
 
 }
 
-void    mainwindow::addlinetolist (int32_t snr,int vals, unsigned char *s1, unsigned char *s2, unsigned char *s3, unsigned char *s4)
+void    mainwindow::addlinetolist (int32_t snr,int vals, bool worked,uint32_t tt, unsigned char *s1, unsigned char *s2, unsigned char *s3, unsigned char *s4)
 {
-    if  (onlycq->IsChecked() && s1[0] == 'C' && s1[1] == 'Q')   {
+    char    str[1024];
+
+    tt /= 1000;
+    sprintf (str,"%02u%02u%02u", tt / 60 / 60, (tt / 60) % 60, tt % 60);
+    if  (s1[0] == 'C' && s1[1] == 'Q')   {
         decodesList->InsertItem (decodedlines, 1);
-        decodesList->SetItem (decodedlines, 0, "+++");
+        decodesList->SetItem (decodedlines, 0, str);
         decodesList->SetItem (decodedlines, 1, wxString::Format(wxT("%i"), (char)snr));
         decodesList->SetItem (decodedlines, 2, s1);
         if  (vals == 4) // CQ DX AA1AAA AA11
@@ -320,11 +334,25 @@ void    mainwindow::addlinetolist (int32_t snr,int vals, unsigned char *s1, unsi
             decodesList->SetItem (decodedlines, 4, s2);
             decodesList->SetItem (decodedlines, 5, s3);
         }
-//        decodesList->SetFocus ();
-//        decodesList->SetItemState(decodedlines, 0, wxLIST_STATE_SELECTED|wxLIST_STATE_FOCUSED);
-        decodesList->EnsureVisible (decodedlines); //SetItemState(decodedlines, wxLIST_STATE_SELECTED, wxLIST_STATE_SELECTED);
+        decodesList->EnsureVisible (decodedlines);
+        if  (worked)
+            decodesList->SetItemBackgroundColour(decodedlines, *wxCYAN);
+        else
+            if  (pause->GetValue())
+                decodesList->SetItemBackgroundColour(decodedlines, *wxYELLOW);
+            else
+                decodesList->SetItemBackgroundColour(decodedlines, *wxGREEN);
         decodedlines++;
-    }
+    } else // no CQ
+    {
+        decodesList->InsertItem (decodedlines, 1);
+        decodesList->SetItem (decodedlines, 0, str);
+        decodesList->SetItem (decodedlines, 1, wxString::Format(wxT("%i"), (char)snr));
+        sprintf (str,"%s %s %s",s1,s2,s3);
+        decodesList->SetItem (decodedlines, 4, str);
+        decodesList->EnsureVisible (decodedlines);
+        decodedlines++;
+        }
 }
 
 void mainwindow::processPacket (void)
@@ -428,7 +456,8 @@ void mainwindow::processPacket (void)
                     len = *(ptr + 3);ptr+=4;
                     memcpy (soft, ptr, len);ptr += len;
                     newdecode = *(ptr);ptr++;newdecode = newdecode;// for warning
-                    decodetime = (uint32_t)ptr[3] << 24 | (uint32_t)ptr[2] << 16 | (uint32_t)ptr[1] << 8 | (uint32_t)ptr[0];decodetime = decodetime; // for warning
+                    decodetime = (uint32_t)ptr[0] << 24 | (uint32_t)ptr[1] << 16 | (uint32_t)ptr[2] << 8 | (uint32_t)ptr[3];decodetime = decodetime; // for warning
+                    memset (str,0,sizeof (str));
                     ptr += 4;
                     snr = (uint32_t)ptr[3];snr = snr; // for warning
                     ptr += 4;
@@ -446,17 +475,16 @@ void mainwindow::processPacket (void)
                     ptr += len;
                     // next ignored
                     c = sscanf (msg,"%s %s %s %s", s1, s2, s3, s4);
-                    addlinetolist (snr, c, s1, s2, s3, s4);
                     if  (msg[0] == 'C' && msg[1] == 'Q')
                     {
                         strcpy ((char *)w.dxcall, (char *)s2);
                         w.freq = Globalfreq;
                         strcpy ((char *)w.mode, Globalmode);
-                        if  (qsobefore(&w) || c == 4)   // ignoring CQ DX etc...
-;//                            decodes->SetBackgroundColour (*wxCYAN);
+                        if  (qsobefore(&w) || c == 4)   // ignoring CQ DX, QSO before etc...
+                            addlinetolist (snr, c, true, decodetime, s1, s2, s3, s4);
                         else
                         {
-                            //decodes->SetBackgroundColour (*wxGREEN);
+                            addlinetolist (snr, c, false, decodetime, s1, s2, s3, s4);
                             if  (!qsorunning && strlen ((char *)w.dxcall) > 3 && !pause->GetValue()) // check for CQ DX etc...
                             {
                                 qsorunning = true;
@@ -488,7 +516,7 @@ void mainwindow::processPacket (void)
                     } else {
                         if  (!onlycq->IsChecked())
                         {
-                            sprintf (str,"%4i\t\t\t%-17s\n",(char)snr, msg);
+                            addlinetolist (snr, c, true, decodetime, s1, s2, s3, s4);
                         }
                     }
                     //decodes->AppendText(str);
