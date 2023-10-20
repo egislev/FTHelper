@@ -724,3 +724,4 @@ void mainwindow::OnButton6Click(wxCommandEvent& event)
 {
     log->Clear();
 }
+
