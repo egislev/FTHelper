@@ -1727,10 +1727,11 @@
 	<wx/stattext.h>
 	<wx/textctrl.h>
 
-1697547267 /home/egis/HAM/FTHelper/mainwindow.h
+1697838007 /home/egis/HAM/FTHelper/mainwindow.h
 	<wx/button.h>
 	<wx/checkbox.h>
 	<wx/choice.h>
+	<wx/filedlg.h>
 	<wx/frame.h>
 	<wx/listctrl.h>
 	<wx/radiobut.h>
@@ -1739,9 +1740,10 @@
 	<wx/tglbtn.h>
 	<wx/socket.h>
 	<wx/timer.h>
+	<wx/msgdlg.h>
 	"fthelper.h"
 
-1697500989 source:/home/egis/HAM/FTHelper/mainwindow.cpp
+1697838407 source:/home/egis/HAM/FTHelper/mainwindow.cpp
 	<iostream>
 	<fstream>
 	"mainwindow.h"

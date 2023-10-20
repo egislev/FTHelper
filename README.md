@@ -6,5 +6,5 @@ FT8/FT4 QSO automation for MSHV/WSJT/JTDX
 		  For now programm tries to make QSO's with first non-worked CQ-calling station in decodes.
     	  This list is renewed every time slot.
     v1.01	 improved messages list both for linux and windows, used wxlisctrl
-
+    v1.02	 "Wanted DX" is working
     sudo apt install libwxgtk3.2-dev

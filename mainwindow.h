@@ -5,6 +5,7 @@
 #include <wx/button.h>
 #include <wx/checkbox.h>
 #include <wx/choice.h>
+#include <wx/filedlg.h>
 #include <wx/frame.h>
 #include <wx/listctrl.h>
 #include <wx/radiobut.h>
@@ -14,6 +15,7 @@
 //*)
 #include <wx/socket.h>
 #include <wx/timer.h>
+#include <wx/msgdlg.h>
 #include "fthelper.h"
 
 class mainwindow: public wxFrame
@@ -24,6 +26,7 @@ class mainwindow: public wxFrame
 		virtual ~mainwindow();
         void OnTimer(wxTimerEvent& event);
         void OnMenu(wxCommandEvent& event);
+        void OnAbout(wxCommandEvent& event);
 
         wxMenuBar *pMenuBar;
         wxMenu *pImportMenu;
@@ -33,12 +36,17 @@ class mainwindow: public wxFrame
 		//(*Declarations(mainwindow)
 		wxButton* Button1;
 		wxButton* Button2;
+		wxButton* Button3;
+		wxButton* Button4;
+		wxButton* Button5;
+		wxButton* Button6;
 		wxButton* decodingact;
 		wxButton* startstop;
 		wxButton* txon;
 		wxCheckBox* fwen;
 		wxCheckBox* onlycq;
 		wxChoice* txtimeout;
+		wxFileDialog* FileDialog1;
 		wxListCtrl* decodesList;
 		wxRadioButton* RadioButton1;
 		wxRadioButton* RadioButton2;
@@ -102,6 +110,10 @@ class mainwindow: public wxFrame
 		static const long ID_RADIOBUTTON6;
 		static const long ID_TOGGLEBUTTON1;
 		static const long ID_LISTCTRL1;
+		static const long ID_BUTTON7;
+		static const long ID_BUTTON8;
+		static const long ID_BUTTON6;
+		static const long ID_BUTTON9;
 		//*)
 		static const long SOCKET_ID;
 		static const long TIMER_ID;
@@ -114,9 +126,17 @@ class mainwindow: public wxFrame
 		void OnButton1Click1(wxCommandEvent& event);
 		void OnRadioButton3Select(wxCommandEvent& event);
 		void OnpauseClick(wxCommandEvent& event);
+		void OnButton4Click(wxCommandEvent& event);
+		void OnButton3Click(wxCommandEvent& event);
+		void OnwantedlocText(wxCommandEvent& event);
+		void OnButton5Click(wxCommandEvent& event);
+		void OnpauseToggle(wxCommandEvent& event);
+		void OnwantedlistText(wxCommandEvent& event);
+		void OnButton6Click(wxCommandEvent& event);
 		//*)
         void OnSocketEvent(wxSocketEvent& event);
         void addlinetolist (int32_t, int, bool, uint32_t, unsigned char *, unsigned char *, unsigned char *, unsigned char *);
+        bool search4wanteddx (Worked *);
 	protected:
 
 		void BuildContent();
