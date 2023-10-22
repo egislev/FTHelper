@@ -128,10 +128,9 @@
 			<label>Use wanted list</label>
 			<pos>608,120</pos>
 		</object>
-		<object class="wxRadioButton" name="ID_RADIOBUTTON2" variable="RadioButton2" member="yes">
+		<object class="wxRadioButton" name="ID_RADIOBUTTON2" variable="useignorelist" member="yes">
 			<label>Use ignore list</label>
 			<pos>608,144</pos>
-			<enabled>0</enabled>
 		</object>
 		<object class="wxRadioButton" name="ID_RADIOBUTTON3" variable="usemindistance" member="yes">
 			<label>Min. distance km. :</label>
@@ -194,10 +193,9 @@
 				<face>Sans</face>
 			</font>
 		</object>
-		<object class="wxRadioButton" name="ID_RADIOBUTTON6" variable="RadioButton1" member="yes">
+		<object class="wxRadioButton" name="ID_RADIOBUTTON6" variable="usewantedloc" member="yes">
 			<label>Use wanted LOC</label>
 			<pos>608,168</pos>
-			<enabled>0</enabled>
 		</object>
 		<object class="wxToggleButton" name="ID_TOGGLEBUTTON1" variable="pause" member="yes">
 			<label>Pause</label>
@@ -247,6 +245,9 @@
 			<default_dir>.</default_dir>
 			<wildcard>*.txt</wildcard>
 		</object>
+		<object class="wxFileDialog" variable="FileDialog2" member="yes">
+			<message>Select ADI file</message>
+			<wildcard>*.adi*</wildcard>
+		</object>
 	</object>
 </wxsmith>
-

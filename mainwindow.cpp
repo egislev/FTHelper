@@ -67,6 +67,8 @@ wxDatagramSocket    *sock;
 char                Software[64] = {0};
 char                Globalmode[8] = {0};
 uint64_t            Globalfreq = 0;
+char                GlobalCall[16] = {0};
+char                GlobalQTH[16] = {0};
 unsigned char       maxschema;
 std::vector<Worked> worked;
 wxTimer             *qsotimer;
@@ -136,8 +138,7 @@ void mainwindow::BuildContent()
 	ignorelist = new wxTextCtrl(this, ID_TEXTCTRL8, wxEmptyString, wxPoint(472,72), wxSize(60,328), wxTE_MULTILINE, wxDefaultValidator, _T("ID_TEXTCTRL8"));
 	wantedlist = new wxTextCtrl(this, ID_TEXTCTRL7, wxEmptyString, wxPoint(400,72), wxSize(60,328), wxTE_MULTILINE, wxDefaultValidator, _T("ID_TEXTCTRL7"));
 	usewantedlist = new wxRadioButton(this, ID_RADIOBUTTON1, _("Use wanted list"), wxPoint(608,120), wxDefaultSize, 0, wxDefaultValidator, _T("ID_RADIOBUTTON1"));
-	RadioButton2 = new wxRadioButton(this, ID_RADIOBUTTON2, _("Use ignore list"), wxPoint(608,144), wxDefaultSize, 0, wxDefaultValidator, _T("ID_RADIOBUTTON2"));
-	RadioButton2->Disable();
+	useignorelist = new wxRadioButton(this, ID_RADIOBUTTON2, _("Use ignore list"), wxPoint(608,144), wxDefaultSize, 0, wxDefaultValidator, _T("ID_RADIOBUTTON2"));
 	usemindistance = new wxRadioButton(this, ID_RADIOBUTTON3, _("Min. distance km. :"), wxPoint(608,192), wxDefaultSize, 0, wxDefaultValidator, _T("ID_RADIOBUTTON3"));
 	usemindistance->Disable();
 	mindistance = new wxTextCtrl(this, ID_TEXTCTRL9, _("700"), wxPoint(760,192), wxSize(97,24), 0, wxDefaultValidator, _T("ID_TEXTCTRL9"));
@@ -155,8 +156,7 @@ void mainwindow::BuildContent()
 	StaticText8 = new wxStaticText(this, ID_STATICTEXT8, _("Wanted LOC"), wxPoint(544,48), wxSize(72,19), 0, _T("ID_STATICTEXT8"));
 	wxFont StaticText8Font(8,wxFONTFAMILY_SWISS,wxFONTSTYLE_NORMAL,wxFONTWEIGHT_NORMAL,false,_T("Sans"),wxFONTENCODING_DEFAULT);
 	StaticText8->SetFont(StaticText8Font);
-	RadioButton1 = new wxRadioButton(this, ID_RADIOBUTTON6, _("Use wanted LOC"), wxPoint(608,168), wxDefaultSize, 0, wxDefaultValidator, _T("ID_RADIOBUTTON6"));
-	RadioButton1->Disable();
+	usewantedloc = new wxRadioButton(this, ID_RADIOBUTTON6, _("Use wanted LOC"), wxPoint(608,168), wxDefaultSize, 0, wxDefaultValidator, _T("ID_RADIOBUTTON6"));
 	pause = new wxToggleButton(this, ID_TOGGLEBUTTON1, _("Pause"), wxPoint(768,88), wxSize(192,33), 0, wxDefaultValidator, _T("ID_TOGGLEBUTTON1"));
 	decodesList = new wxListCtrl(this, ID_LISTCTRL1, wxPoint(8,48), wxSize(384,390), wxLC_REPORT|wxLC_NO_HEADER, wxDefaultValidator, _T("ID_LISTCTRL1"));
 	wxFont decodesListFont(10,wxFONTFAMILY_DEFAULT,wxFONTSTYLE_NORMAL,wxFONTWEIGHT_BOLD,false,_T("Nimbus Roman"),wxFONTENCODING_DEFAULT);
@@ -166,6 +166,7 @@ void mainwindow::BuildContent()
 	Button3 = new wxButton(this, ID_BUTTON6, _("Load"), wxPoint(472,408), wxSize(64,33), 0, wxDefaultValidator, _T("ID_BUTTON6"));
 	Button6 = new wxButton(this, ID_BUTTON9, _("Clear log "), wxPoint(112,448), wxSize(100,33), 0, wxDefaultValidator, _T("ID_BUTTON9"));
 	FileDialog1 = new wxFileDialog(this, _("Select wanted DX file"), _("."), wxEmptyString, _("*.txt"), wxFD_DEFAULT_STYLE, wxDefaultPosition, wxDefaultSize, _T("wxFileDialog"));
+	FileDialog2 = new wxFileDialog(this, _("Select ADI file"), wxEmptyString, wxEmptyString, _("*.adi*"), wxFD_DEFAULT_STYLE, wxDefaultPosition, wxDefaultSize, _T("wxFileDialog"));
 
 	Connect(ID_BUTTON5,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&mainwindow::OnButton1Click);
 	Connect(ID_BUTTON1,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&mainwindow::OnButton1Click);
@@ -214,6 +215,7 @@ void mainwindow::BuildContent()
     pMenuBar->Append(pAboutMenu, wxT("&Help"));
     SetMenuBar(pMenuBar);
     Bind(wxEVT_MENU, &mainwindow::OnAbout, this, wxID_ABOUT);
+    Bind(wxEVT_MENU, &mainwindow::OnImportADIF, this, wxID_OPEN);
     pMenuBar->Show();
 }
 
@@ -315,6 +317,78 @@ void mainwindow::OnTimer(wxTimerEvent& event)
     qsotimer->Stop();
 }
 
+void mainwindow::OnImportADIF(wxCommandEvent& event)
+{
+    std::ifstream   in;
+    char            str[1024];
+
+    if  ( FileDialog2->ShowModal() == wxID_OK )
+	{
+		wxString path;
+		path.append( FileDialog2->GetDirectory() );
+#ifdef __WXMSW__
+    path.append ("\\");
+#else
+    path.append ("//");
+#endif
+		path.append( FileDialog2->GetFilename() );
+		std::cout  << path << "\n";
+        in.open(path, std::ios_base::in);
+        while ( !in.eof() )
+        {
+            in.getline (str, 1024);
+            //std::cout << str << std::endl;
+                    }
+        in.close();
+	}
+}
+
+int mainwindow::dxdistance (char *s)
+{
+    double mylon, mylat, myflon, myflat, myslon, myslat, mysublon, mysublat;
+    double dxlon, dxlat, dxflon, dxflat, dxslon, dxslat, dxsublon, dxsublat;
+
+    mysublat = mysublon = dxsublat = dxsublon = 0;
+
+    if  (strlen (s) < 4 || strlen (GlobalQTH) < 4)
+        return (0);
+
+    myflon = toupper (GlobalQTH[0]) - 'A';myflat = toupper (GlobalQTH[1]) - 'A';
+    myslon = GlobalQTH[2] - '0';myslat = GlobalQTH[3] - '0';
+    if  (strlen (GlobalQTH) >= 4)
+    {
+        mysublon = toupper (GlobalQTH[4]) - 'A';mysublon += (float)0.5;mysublon /= (float)12;
+        mysublat = toupper (GlobalQTH[5]) - 'A';mysublat += (float)0.5;mysublat /= (float)24;
+    }
+    mylon = myflon * 20 + myslon * 2 + mysublon;
+    mylat = myflat * 10 + myslat + mysublat;
+    mylon -= 180;mylat -= 90;
+
+    dxflon = toupper (s[0]) - 'A';dxflat = toupper (s[1]) - 'A';
+    dxslon = s[2] - '0';dxslat = s[3] - '0';
+    if  (strlen (s) >= 4)
+    {
+        dxsublon = toupper (s[4]) - 'A';dxsublon += (float)0.5;dxsublon /= (float)12;
+        dxsublat = toupper (s[5]) - 'A';dxsublat += (float)0.5;dxsublat /= (float)24;
+    }
+    dxlon = dxflon * 20 + dxslon * 2 + dxsublon;
+    dxlat = dxflat * 10 + dxslat + dxsublat;
+    dxlon -= 180;dxlat -= 90;
+
+    std::cout << mylat << " " << mylon << "     " << dxlat << " " << dxlon << "\n";
+
+    double r = 6371; // km
+    double p = 3.14159265358 / 180;
+    double a = 0.5 - std::cos ((dxlat - mylat) * p) / 2
+                + std::cos(mylat * p) * std::cos(dxlat * p) *
+                  (1 - std::cos((dxlon - mylon) * p)) / 2;
+
+    double retval =  2 * r * std::asin (std::sqrt(a));
+    std::cout << "Distance : " << retval << "\n";
+
+    return (0);
+}
+
 
 bool    qsobefore (Worked *w)
 {
@@ -343,6 +417,42 @@ bool    mainwindow::search4wanteddx (Worked *w)
             if  (!strncasecmp (w->dxcall, wantedlist->GetLineText(i), strlen (wantedlist->GetLineText(i))))
             {
                 std::cout << "Found wanted DX [" << w->dxcall << "] / [" << wantedlist->GetLineText(i) << "]\n";
+                return true;
+            }
+        }
+    }
+
+    return false;
+}
+
+bool    mainwindow::search4ignoreddx (Worked *w)
+{
+    std::cout << "Searching for ignored DX [" << w->dxcall << "] ...\n";
+    for (int i = 0;i < ignorelist->GetNumberOfLines();i++)
+    {
+        if  (strlen (ignorelist->GetLineText(i)))
+        {
+            if  (!strncasecmp (w->dxcall, ignorelist->GetLineText(i), strlen (ignorelist->GetLineText(i))))
+            {
+                std::cout << "Found ignored DX [" << w->dxcall << "] / [" << ignorelist->GetLineText(i) << "]\n";
+                return true;
+            }
+        }
+    }
+
+    return false;
+}
+
+bool    mainwindow::search4wantedloc (unsigned char *l)
+{
+    std::cout << "Searching for wanted LOC [" << l << "] ...\n";
+    for (int i = 0;i < wantedloc->GetNumberOfLines();i++)
+    {
+        if  (strlen (wantedloc->GetLineText(i)))
+        {
+            if  (!strncasecmp ((char *)l, wantedloc->GetLineText(i), strlen (wantedloc->GetLineText(i))))
+            {
+                std::cout << "Found wanted DX [" << l << "] / [" << wantedloc->GetLineText(i) << "]\n";
                 return true;
             }
         }
@@ -439,6 +549,8 @@ void mainwindow::processPacket (void)
                     memset (dxcall, 0, sizeof (dxcall));
                     memset (report, 0, sizeof (report));
                     memset (txmode, 0, sizeof (txmode));
+                    memset (GlobalCall, 0, sizeof (GlobalCall));
+                    memset (GlobalQTH, 0, sizeof (GlobalQTH));
                     ptr = buf + 12;
                     len = *(ptr +3);ptr += 4;
                     memcpy (soft, ptr, len);
@@ -463,11 +575,15 @@ void mainwindow::processPacket (void)
                     txenable = *ptr;ptr++;txenable = txenable; // for warning
                     txing = *ptr;ptr++;
                     decoderunning = *ptr != 0?true:false;
+                    ptr += 9;
+                    len = *(ptr + 3);ptr += 4;
+                    memcpy (GlobalCall, ptr, len);
+                    ptr += len;
+                    len = *(ptr + 3);ptr += 4;
+                    memcpy (GlobalQTH, ptr, len);
                     if  (decoderunning)
                     {
                         decodingact->SetBackgroundColour(*wxYELLOW);
-                        //decodes->AppendText("------------------------------------------------------------------------------\n");
-                        //decodes->Clear();
                     }
                     else
                         decodingact->SetBackgroundColour("");
@@ -475,7 +591,7 @@ void mainwindow::processPacket (void)
                         txon->SetBackgroundColour(*wxRED);
                     else
                         txon->SetBackgroundColour("");
-                    sprintf (str,"Status : %s [ID %s] Tuned frequency %.3f Mhz %s    Total registered QSO's : %lu\n", Software, soft, freq / 1e6, mode, (unsigned long)worked.size());
+                    sprintf (str,"Status : %s [ID %s] Tuned frequency %.3f Mhz %s My call : %s My QTH : %s             Total registered QSO's : %lu\n", Software, soft, freq / 1e6, mode, GlobalCall, GlobalQTH, (unsigned long)worked.size());
                     SetStatusText(str);
                     break;
             case    2: // decode
@@ -522,9 +638,12 @@ void mainwindow::processPacket (void)
                             addlinetolist (snr, c, true, decodetime, s1, s2, s3, s4);
                         else
                         {
-                            addlinetolist (snr, c, false, decodetime, s1, s2, s3, s4);
 
-                            if  (!qsorunning && strlen ((char *)w.dxcall) > 3 && !pause->GetValue() && ((usewantedlist->GetValue() && search4wanteddx (&w)) || usecq->GetValue())) // check for CQ DX etc...
+                            int distance = dxdistance ((char *)s3);
+                            addlinetolist (snr, c, false, decodetime, s1, s2, s3, s4);
+                            if  (!qsorunning && strlen ((char *)w.dxcall) > 3 && !pause->GetValue() && ((usewantedlist->GetValue() && search4wanteddx (&w)) || usecq->GetValue() ||
+                                                                                                        (useignorelist->GetValue() && !search4ignoreddx(&w)) ||
+                                                                                                        (usewantedloc->GetValue() && search4wantedloc(s3)))) // check for CQ DX etc...
                             {
                                 qsorunning = true;
                                 log->AppendText(wxString::Format(wxT("Calling [ %s ] ...\n"),w.dxcall));

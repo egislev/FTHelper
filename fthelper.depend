@@ -1727,7 +1727,7 @@
 	<wx/stattext.h>
 	<wx/textctrl.h>
 
-1697838007 /home/egis/HAM/FTHelper/mainwindow.h
+1697966349 /home/egis/HAM/FTHelper/mainwindow.h
 	<wx/button.h>
 	<wx/checkbox.h>
 	<wx/choice.h>
@@ -1738,12 +1738,13 @@
 	<wx/stattext.h>
 	<wx/textctrl.h>
 	<wx/tglbtn.h>
+	<string.h>
 	<wx/socket.h>
 	<wx/timer.h>
 	<wx/msgdlg.h>
 	"fthelper.h"
 
-1697838407 source:/home/egis/HAM/FTHelper/mainwindow.cpp
+1697845086 source:/home/egis/HAM/FTHelper/mainwindow.cpp
 	<iostream>
 	<fstream>
 	"mainwindow.h"
@@ -1769,12 +1770,14 @@
 	"wx/defs.h"
 	"wx/string.h"
 
-1697481790 /home/egis/HAM/FTHelper/fthelper.h
+1697913677 /home/egis/HAM/FTHelper/fthelper.h
 	<vector>
-	<iostream>
 	<fstream>
 	<iterator>
 	<algorithm>
+	<iostream>
+	<map>
+	<string>
 
 1648163323 /usr/include/wx-3.0/wx/grid.h
 	"wx/generic/grid.h"
@@ -1808,4 +1811,21 @@
 
 1648163323 /usr/include/wx-3.0/wx/gtk/tglbtn.h
 	"wx/bitmap.h"
+
+1697902185 source:/home/egis/HAM/FTHelper/adifio.cpp
+	"adifio.hpp"
+
+1697902088 /home/egis/HAM/FTHelper/adifio.hpp
+	<string>
+	<iostream>
+	<iomanip>
+	<unordered_map>
+	<map>
+	<stdexcept>
+	<chrono>
+	<memory>
+	<cassert>
+	<sstream>
+	<functional>
+	<format>
 

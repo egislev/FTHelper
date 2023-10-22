@@ -1,10 +1,12 @@
 #ifndef FTHELPER_H
 #define FTHELPER_H
 #include <vector>
-#include <iostream>
 #include <fstream>
 #include <iterator>
 #include <algorithm>
+#include <iostream>
+#include <map>
+#include <string>
 
 struct Worked
 {

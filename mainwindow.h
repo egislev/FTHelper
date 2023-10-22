@@ -13,6 +13,7 @@
 #include <wx/textctrl.h>
 #include <wx/tglbtn.h>
 //*)
+#include <string.h>
 #include <wx/socket.h>
 #include <wx/timer.h>
 #include <wx/msgdlg.h>
@@ -27,6 +28,7 @@ class mainwindow: public wxFrame
         void OnTimer(wxTimerEvent& event);
         void OnMenu(wxCommandEvent& event);
         void OnAbout(wxCommandEvent& event);
+        void OnImportADIF(wxCommandEvent& event);
 
         wxMenuBar *pMenuBar;
         wxMenu *pImportMenu;
@@ -47,13 +49,14 @@ class mainwindow: public wxFrame
 		wxCheckBox* onlycq;
 		wxChoice* txtimeout;
 		wxFileDialog* FileDialog1;
+		wxFileDialog* FileDialog2;
 		wxListCtrl* decodesList;
-		wxRadioButton* RadioButton1;
-		wxRadioButton* RadioButton2;
 		wxRadioButton* usecq73;
 		wxRadioButton* usecq;
+		wxRadioButton* useignorelist;
 		wxRadioButton* usemindistance;
 		wxRadioButton* usewantedlist;
+		wxRadioButton* usewantedloc;
 		wxStaticText* StaticText1;
 		wxStaticText* StaticText2;
 		wxStaticText* StaticText3;
@@ -137,6 +140,9 @@ class mainwindow: public wxFrame
         void OnSocketEvent(wxSocketEvent& event);
         void addlinetolist (int32_t, int, bool, uint32_t, unsigned char *, unsigned char *, unsigned char *, unsigned char *);
         bool search4wanteddx (Worked *);
+        bool search4ignoreddx (Worked *);
+        bool search4wantedloc (unsigned char *);
+        int dxdistance (char *);
 	protected:
 
 		void BuildContent();
