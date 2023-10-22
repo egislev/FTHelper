@@ -51,7 +51,6 @@ class mainwindow: public wxFrame
 		wxFileDialog* FileDialog1;
 		wxFileDialog* FileDialog2;
 		wxListCtrl* decodesList;
-		wxRadioButton* usecq73;
 		wxRadioButton* usecq;
 		wxRadioButton* useignorelist;
 		wxRadioButton* usemindistance;
@@ -108,7 +107,6 @@ class mainwindow: public wxFrame
 		static const long ID_STATICTEXT6;
 		static const long ID_STATICTEXT7;
 		static const long ID_RADIOBUTTON4;
-		static const long ID_RADIOBUTTON5;
 		static const long ID_STATICTEXT8;
 		static const long ID_RADIOBUTTON6;
 		static const long ID_TOGGLEBUTTON1;

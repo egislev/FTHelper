@@ -47,7 +47,6 @@ const long mainwindow::ID_TEXTCTRL9 = wxNewId();
 const long mainwindow::ID_STATICTEXT6 = wxNewId();
 const long mainwindow::ID_STATICTEXT7 = wxNewId();
 const long mainwindow::ID_RADIOBUTTON4 = wxNewId();
-const long mainwindow::ID_RADIOBUTTON5 = wxNewId();
 const long mainwindow::ID_STATICTEXT8 = wxNewId();
 const long mainwindow::ID_RADIOBUTTON6 = wxNewId();
 const long mainwindow::ID_TOGGLEBUTTON1 = wxNewId();
@@ -130,7 +129,7 @@ void mainwindow::BuildContent()
 	txtimeout->Append(_("3"));
 	txtimeout->Append(_("4"));
 	txtimeout->Append(_("5"));
-	StaticText5 = new wxStaticText(this, ID_STATICTEXT5, _("TX timeout in min."), wxPoint(632,232), wxDefaultSize, 0, _T("ID_STATICTEXT5"));
+	StaticText5 = new wxStaticText(this, ID_STATICTEXT5, _("TX timeout in min."), wxPoint(616,232), wxDefaultSize, 0, _T("ID_STATICTEXT5"));
 	Button1 = new wxButton(this, ID_BUTTON4, _("Clear decodes"), wxPoint(8,448), wxSize(100,33), 0, wxDefaultValidator, _T("ID_BUTTON4"));
 	onlycq = new wxCheckBox(this, ID_CHECKBOX2, _("Show only CQ decodes"), wxPoint(224,456), wxDefaultSize, 0, wxDefaultValidator, _T("ID_CHECKBOX2"));
 	onlycq->SetValue(true);
@@ -140,19 +139,15 @@ void mainwindow::BuildContent()
 	usewantedlist = new wxRadioButton(this, ID_RADIOBUTTON1, _("Use wanted list"), wxPoint(608,120), wxDefaultSize, 0, wxDefaultValidator, _T("ID_RADIOBUTTON1"));
 	useignorelist = new wxRadioButton(this, ID_RADIOBUTTON2, _("Use ignore list"), wxPoint(608,144), wxDefaultSize, 0, wxDefaultValidator, _T("ID_RADIOBUTTON2"));
 	usemindistance = new wxRadioButton(this, ID_RADIOBUTTON3, _("Min. distance km. :"), wxPoint(608,192), wxDefaultSize, 0, wxDefaultValidator, _T("ID_RADIOBUTTON3"));
-	usemindistance->Disable();
 	mindistance = new wxTextCtrl(this, ID_TEXTCTRL9, _("700"), wxPoint(760,192), wxSize(97,24), 0, wxDefaultValidator, _T("ID_TEXTCTRL9"));
-	mindistance->Disable();
 	StaticText6 = new wxStaticText(this, ID_STATICTEXT6, _("Wanted DX"), wxPoint(400,48), wxSize(72,19), 0, _T("ID_STATICTEXT6"));
 	wxFont StaticText6Font(8,wxFONTFAMILY_SWISS,wxFONTSTYLE_NORMAL,wxFONTWEIGHT_NORMAL,false,_T("Sans"),wxFONTENCODING_DEFAULT);
 	StaticText6->SetFont(StaticText6Font);
 	StaticText7 = new wxStaticText(this, ID_STATICTEXT7, _("Ignored DX"), wxPoint(472,48), wxSize(72,19), 0, _T("ID_STATICTEXT7"));
 	wxFont StaticText7Font(8,wxFONTFAMILY_SWISS,wxFONTSTYLE_NORMAL,wxFONTWEIGHT_NORMAL,false,_T("Sans"),wxFONTENCODING_DEFAULT);
 	StaticText7->SetFont(StaticText7Font);
-	usecq = new wxRadioButton(this, ID_RADIOBUTTON4, _("All CQ\'s"), wxPoint(608,72), wxDefaultSize, 0, wxDefaultValidator, _T("ID_RADIOBUTTON4"));
+	usecq = new wxRadioButton(this, ID_RADIOBUTTON4, _("All CQ\'s"), wxPoint(608,96), wxDefaultSize, 0, wxDefaultValidator, _T("ID_RADIOBUTTON4"));
 	usecq->SetValue(true);
-	usecq73 = new wxRadioButton(this, ID_RADIOBUTTON5, _("CQ && 73"), wxPoint(608,96), wxDefaultSize, 0, wxDefaultValidator, _T("ID_RADIOBUTTON5"));
-	usecq73->Disable();
 	StaticText8 = new wxStaticText(this, ID_STATICTEXT8, _("Wanted LOC"), wxPoint(544,48), wxSize(72,19), 0, _T("ID_STATICTEXT8"));
 	wxFont StaticText8Font(8,wxFONTFAMILY_SWISS,wxFONTSTYLE_NORMAL,wxFONTWEIGHT_NORMAL,false,_T("Sans"),wxFONTENCODING_DEFAULT);
 	StaticText8->SetFont(StaticText8Font);
@@ -192,13 +187,13 @@ void mainwindow::BuildContent()
 
     std::cout.rdbuf(log);
 #ifdef __WXMSW__
-    decodesList->SetColumnWidth(4, 145); // msg
+    decodesList->SetColumnWidth(4, 150); // msg
 #else
     decodesList->SetColumnWidth(4, 165); // msg
 #endif
     decodesList->SetColumnWidth(5, 50); // Grid
 
-    SetLabel ("FT helper v1.02");
+    SetLabel ("FT helper v1.04");
     CreateStatusBar ();
     SetStatusText ("FT helper ready.");
     memset (Software, 0, sizeof (Software));
@@ -375,18 +370,14 @@ int mainwindow::dxdistance (char *s)
     dxlat = dxflat * 10 + dxslat + dxsublat;
     dxlon -= 180;dxlat -= 90;
 
-    std::cout << mylat << " " << mylon << "     " << dxlat << " " << dxlon << "\n";
-
     double r = 6371; // km
     double p = 3.14159265358 / 180;
     double a = 0.5 - std::cos ((dxlat - mylat) * p) / 2
                 + std::cos(mylat * p) * std::cos(dxlat * p) *
                   (1 - std::cos((dxlon - mylon) * p)) / 2;
-
     double retval =  2 * r * std::asin (std::sqrt(a));
-    std::cout << "Distance : " << retval << "\n";
 
-    return (0);
+    return (retval);
 }
 
 
@@ -638,11 +629,13 @@ void mainwindow::processPacket (void)
                             addlinetolist (snr, c, true, decodetime, s1, s2, s3, s4);
                         else
                         {
-
                             int distance = dxdistance ((char *)s3);
+                            if  (usemindistance->GetValue())
+                                std::cout << w.dxcall << " distance - " << distance << " km.\n";
                             addlinetolist (snr, c, false, decodetime, s1, s2, s3, s4);
                             if  (!qsorunning && strlen ((char *)w.dxcall) > 3 && !pause->GetValue() && ((usewantedlist->GetValue() && search4wanteddx (&w)) || usecq->GetValue() ||
                                                                                                         (useignorelist->GetValue() && !search4ignoreddx(&w)) ||
+                                                                                                        (usemindistance->GetValue() && distance > std::atoi (mindistance->GetValue())) ||
                                                                                                         (usewantedloc->GetValue() && search4wantedloc(s3)))) // check for CQ DX etc...
                             {
                                 qsorunning = true;

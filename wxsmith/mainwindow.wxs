@@ -96,7 +96,7 @@
 		</object>
 		<object class="wxStaticText" name="ID_STATICTEXT5" variable="StaticText5" member="yes">
 			<label>TX timeout in min.</label>
-			<pos>632,232</pos>
+			<pos>616,232</pos>
 		</object>
 		<object class="wxButton" name="ID_BUTTON4" variable="Button1" member="yes">
 			<label>Clear decodes</label>
@@ -135,14 +135,12 @@
 		<object class="wxRadioButton" name="ID_RADIOBUTTON3" variable="usemindistance" member="yes">
 			<label>Min. distance km. :</label>
 			<pos>608,192</pos>
-			<enabled>0</enabled>
 			<handler function="OnRadioButton3Select" entry="EVT_RADIOBUTTON" />
 		</object>
 		<object class="wxTextCtrl" name="ID_TEXTCTRL9" variable="mindistance" member="yes">
 			<value>700</value>
 			<pos>760,192</pos>
 			<size>97,24</size>
-			<enabled>0</enabled>
 		</object>
 		<object class="wxStaticText" name="ID_STATICTEXT6" variable="StaticText6" member="yes">
 			<label>Wanted DX</label>
@@ -173,12 +171,7 @@
 		<object class="wxRadioButton" name="ID_RADIOBUTTON4" variable="usecq" member="yes">
 			<label>All CQ&apos;s</label>
 			<selected>1</selected>
-			<pos>608,72</pos>
-		</object>
-		<object class="wxRadioButton" name="ID_RADIOBUTTON5" variable="usecq73" member="yes">
-			<label>CQ &amp;&amp; 73</label>
 			<pos>608,96</pos>
-			<enabled>0</enabled>
 		</object>
 		<object class="wxStaticText" name="ID_STATICTEXT8" variable="StaticText8" member="yes">
 			<label>Wanted LOC</label>
