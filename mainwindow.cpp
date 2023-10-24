@@ -139,7 +139,7 @@ void mainwindow::BuildContent()
 	usewantedlist = new wxRadioButton(this, ID_RADIOBUTTON1, _("Use wanted list"), wxPoint(608,120), wxDefaultSize, 0, wxDefaultValidator, _T("ID_RADIOBUTTON1"));
 	useignorelist = new wxRadioButton(this, ID_RADIOBUTTON2, _("Use ignore list"), wxPoint(608,144), wxDefaultSize, 0, wxDefaultValidator, _T("ID_RADIOBUTTON2"));
 	usemindistance = new wxRadioButton(this, ID_RADIOBUTTON3, _("Min. distance km. :"), wxPoint(608,192), wxDefaultSize, 0, wxDefaultValidator, _T("ID_RADIOBUTTON3"));
-	mindistance = new wxTextCtrl(this, ID_TEXTCTRL9, _("700"), wxPoint(760,192), wxSize(97,24), 0, wxDefaultValidator, _T("ID_TEXTCTRL9"));
+	mindistance = new wxTextCtrl(this, ID_TEXTCTRL9, _("3000"), wxPoint(760,192), wxSize(97,24), 0, wxDefaultValidator, _T("ID_TEXTCTRL9"));
 	StaticText6 = new wxStaticText(this, ID_STATICTEXT6, _("Wanted DX"), wxPoint(400,48), wxSize(72,19), 0, _T("ID_STATICTEXT6"));
 	wxFont StaticText6Font(8,wxFONTFAMILY_SWISS,wxFONTSTYLE_NORMAL,wxFONTWEIGHT_NORMAL,false,_T("Sans"),wxFONTENCODING_DEFAULT);
 	StaticText6->SetFont(StaticText6Font);
@@ -200,7 +200,7 @@ void mainwindow::BuildContent()
     qsotimer = new wxTimer();
     qsotimer->SetOwner(this, TIMER_ID);
 
-  	pMenuBar = new wxMenuBar;
+    pMenuBar = new wxMenuBar;
     pImportMenu = new wxMenu;
     pImportMenu->Append(wxID_OPEN, _T("&Import ADIF to worked.dat"));
     pImportMenu->Append(wxID_EXIT, _T("&Quit"));
@@ -338,19 +338,23 @@ void mainwindow::OnImportADIF(wxCommandEvent& event)
 	}
 }
 
+double toRad(double degree) {
+    return degree/180 * 3.14159265358;
+}
+
 int mainwindow::dxdistance (char *s)
 {
     double mylon, mylat, myflon, myflat, myslon, myslat, mysublon, mysublat;
-    double dxlon, dxlat, dxflon, dxflat, dxslon, dxslat, dxsublon, dxsublat;
+    double dxlon, dxlat, dxflon, dxflat, dxslon, dxslat;
 
-    mysublat = mysublon = dxsublat = dxsublon = 0;
+    mysublat = mysublon = 0;
 
     if  (strlen (s) < 4 || strlen (GlobalQTH) < 4)
         return (0);
 
     myflon = toupper (GlobalQTH[0]) - 'A';myflat = toupper (GlobalQTH[1]) - 'A';
     myslon = GlobalQTH[2] - '0';myslat = GlobalQTH[3] - '0';
-    if  (strlen (GlobalQTH) >= 4)
+    if  (strlen (GlobalQTH) > 4)
     {
         mysublon = toupper (GlobalQTH[4]) - 'A';mysublon += (float)0.5;mysublon /= (float)12;
         mysublat = toupper (GlobalQTH[5]) - 'A';mysublat += (float)0.5;mysublat /= (float)24;
@@ -361,13 +365,8 @@ int mainwindow::dxdistance (char *s)
 
     dxflon = toupper (s[0]) - 'A';dxflat = toupper (s[1]) - 'A';
     dxslon = s[2] - '0';dxslat = s[3] - '0';
-    if  (strlen (s) >= 4)
-    {
-        dxsublon = toupper (s[4]) - 'A';dxsublon += (float)0.5;dxsublon /= (float)12;
-        dxsublat = toupper (s[5]) - 'A';dxsublat += (float)0.5;dxsublat /= (float)24;
-    }
-    dxlon = dxflon * 20 + dxslon * 2 + dxsublon;
-    dxlat = dxflat * 10 + dxslat + dxsublat;
+    dxlon = dxflon * 20 + dxslon * 2;
+    dxlat = dxflat * 10 + dxslat;
     dxlon -= 180;dxlat -= 90;
 
     double r = 6371; // km

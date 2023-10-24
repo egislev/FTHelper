@@ -12,7 +12,10 @@ struct Worked
 {
         char            dxcall[16];
         char            mode[8];
+#ifdef __WXMSW__
         unsigned long   freq;
-
+#else
+        uint64_t        freq;
+#endif
 };
 #endif
