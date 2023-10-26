@@ -334,19 +334,20 @@ void mainwindow::OnImportADIF(wxCommandEvent& event)
         while ( !in.eof() )
         {
             in.getline (str, 1024);
+            for (size_t n = 0; n < strlen (str); n++) str[n] = toupper (str[n]);
             memset (&w, 0, sizeof (w));
-            if  (strcasestr(str, "<EOR>"))
-                if  (auto p = strcasestr (str, "CALL:"))
+            if  (strstr(str, "<EOR>"))
+                if  (auto p = strstr (str, "CALL:"))
                 {
                     char len = *(p + 5) - '0'; // !!! only up to 9 !!!
                     memcpy (w.dxcall, p + 7, len);
-                    if  (auto p = strcasestr (str, "MODE:"))
+                    if  (auto p = strstr (str, "MODE:"))
                     {
                         char len = *(p + 5) - '0';
                         memcpy (w.mode, p + 7, len);
 
                     }
-                    if  (auto p = strcasestr (str, "FREQ:"))
+                    if  (auto p = strstr (str, "FREQ:"))
                     {
                          p = strchr (p, '>');
                          *p = ' ';
@@ -409,7 +410,7 @@ int mainwindow::dxdistance (char *s)
 bool    qsobefore (Worked *w)
 {
     for (unsigned int i = 0; i < worked.size(); ++i) {
-        if  (!strcmp ((char *)worked[i].dxcall,(char *) w->dxcall))  {
+        if  (!strcmp ((char *)worked[i].dxcall,(char *) w->dxcall))  { // !!! no check for mode & freq
             return true;
         }
     }
