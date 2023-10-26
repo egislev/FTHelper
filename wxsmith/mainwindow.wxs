@@ -138,7 +138,7 @@
 			<handler function="OnRadioButton3Select" entry="EVT_RADIOBUTTON" />
 		</object>
 		<object class="wxTextCtrl" name="ID_TEXTCTRL9" variable="mindistance" member="yes">
-			<value>700</value>
+			<value>3000</value>
 			<pos>760,192</pos>
 			<size>97,24</size>
 		</object>

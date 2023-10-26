@@ -193,7 +193,7 @@ void mainwindow::BuildContent()
 #endif
     decodesList->SetColumnWidth(5, 50); // Grid
 
-    SetLabel ("FT helper v1.04");
+    SetLabel ("FT helper v1.05");
     CreateStatusBar ();
     SetStatusText ("FT helper ready.");
     memset (Software, 0, sizeof (Software));
@@ -316,6 +316,9 @@ void mainwindow::OnImportADIF(wxCommandEvent& event)
 {
     std::ifstream   in;
     char            str[1024];
+    Worked          w;
+    int             imported = 0;
+    float           f;
 
     if  ( FileDialog2->ShowModal() == wxID_OK )
 	{
@@ -327,14 +330,37 @@ void mainwindow::OnImportADIF(wxCommandEvent& event)
     path.append ("//");
 #endif
 		path.append( FileDialog2->GetFilename() );
-		std::cout  << path << "\n";
         in.open(path, std::ios_base::in);
         while ( !in.eof() )
         {
             in.getline (str, 1024);
-            //std::cout << str << std::endl;
+            memset (&w, 0, sizeof (w));
+            if  (strcasestr(str, "<EOR>"))
+                if  (auto p = strcasestr (str, "CALL:"))
+                {
+                    char len = *(p + 5) - '0'; // !!! only up to 9 !!!
+                    memcpy (w.dxcall, p + 7, len);
+                    if  (auto p = strcasestr (str, "MODE:"))
+                    {
+                        char len = *(p + 5) - '0';
+                        memcpy (w.mode, p + 7, len);
+
                     }
+                    if  (auto p = strcasestr (str, "FREQ:"))
+                    {
+                         p = strchr (p, '>');
+                         *p = ' ';
+                         *(strchr (p, '<')) = ' ';
+                         sscanf (p, "%f", &f);
+                         w.freq = f * (unsigned long)1e6;
+                    }
+                    worked.push_back(w); // !!! no dupe check
+                    imported++;
+                }
+        }
         in.close();
+        std::cout << "Imported : " << imported << " records\n";
+
 	}
 }
 
