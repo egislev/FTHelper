@@ -10,6 +10,6 @@ FT8/FT4 QSO automation for MSHV/WSJT/JTDX
     v1.02	 "Wanted DX" is working
     v1.03	 "Ignored DX" and "Wanted LOC" is working
     v1.04	 "Min. distance" is working
-    v1.055	 Import ADIF is working
+    v1.05	 Import ADIF is working
 
     sudo apt install libwxgtk3.2-dev
