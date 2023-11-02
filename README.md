@@ -14,4 +14,5 @@ FT8/FT4 QSO automation for MSHV/WSJT/JTDX
 
     sudo apt install libwxgtk3.2-dev
 
-    It is possibe to route UDP packets via internet using OpenVPN or any other VPN and use this software for remote operations.
+        It is possibe to route UDP packets via internet using OpenVPN or any other VPN and use this software 
+    for remote operations.
