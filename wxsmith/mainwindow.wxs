@@ -12,7 +12,6 @@
 		</object>
 		<object class="wxButton" name="ID_BUTTON1" variable="startstop" member="yes">
 			<label>START</label>
-			<default>1</default>
 			<pos>770,8</pos>
 			<size>190,33</size>
 			<handler function="OnButton1Click" entry="EVT_BUTTON" />
@@ -91,12 +90,12 @@
 				<item>5</item>
 			</content>
 			<selection>1</selection>
-			<pos>760,224</pos>
+			<pos>840,408</pos>
 			<size>56,32</size>
 		</object>
 		<object class="wxStaticText" name="ID_STATICTEXT5" variable="StaticText5" member="yes">
 			<label>TX timeout in min.</label>
-			<pos>616,232</pos>
+			<pos>720,416</pos>
 		</object>
 		<object class="wxButton" name="ID_BUTTON4" variable="Button1" member="yes">
 			<label>Clear decodes</label>
@@ -110,41 +109,41 @@
 			<pos>224,456</pos>
 		</object>
 		<object class="wxTextCtrl" name="ID_TEXTCTRL10" variable="wantedloc" member="yes">
-			<pos>544,72</pos>
-			<size>60,328</size>
+			<pos>608,72</pos>
+			<size>80,330</size>
 			<style>wxTE_MULTILINE</style>
 		</object>
 		<object class="wxTextCtrl" name="ID_TEXTCTRL8" variable="ignorelist" member="yes">
-			<pos>472,72</pos>
-			<size>60,328</size>
+			<pos>504,72</pos>
+			<size>100,330</size>
 			<style>wxTE_MULTILINE</style>
 		</object>
 		<object class="wxTextCtrl" name="ID_TEXTCTRL7" variable="wantedlist" member="yes">
 			<pos>400,72</pos>
-			<size>60,328</size>
+			<size>100,330</size>
 			<style>wxTE_MULTILINE</style>
 		</object>
 		<object class="wxRadioButton" name="ID_RADIOBUTTON1" variable="usewantedlist" member="yes">
 			<label>Use wanted list</label>
-			<pos>608,120</pos>
+			<pos>688,304</pos>
 		</object>
 		<object class="wxRadioButton" name="ID_RADIOBUTTON2" variable="useignorelist" member="yes">
 			<label>Use ignore list</label>
-			<pos>608,144</pos>
+			<pos>688,328</pos>
 		</object>
 		<object class="wxRadioButton" name="ID_RADIOBUTTON3" variable="usemindistance" member="yes">
 			<label>Min. distance km. :</label>
-			<pos>608,192</pos>
+			<pos>688,376</pos>
 			<handler function="OnRadioButton3Select" entry="EVT_RADIOBUTTON" />
 		</object>
 		<object class="wxTextCtrl" name="ID_TEXTCTRL9" variable="mindistance" member="yes">
 			<value>3000</value>
-			<pos>760,192</pos>
+			<pos>840,376</pos>
 			<size>97,24</size>
 		</object>
 		<object class="wxStaticText" name="ID_STATICTEXT6" variable="StaticText6" member="yes">
 			<label>Wanted DX</label>
-			<pos>400,48</pos>
+			<pos>416,48</pos>
 			<size>72,19</size>
 			<font>
 				<size>8</size>
@@ -157,7 +156,7 @@
 		</object>
 		<object class="wxStaticText" name="ID_STATICTEXT7" variable="StaticText7" member="yes">
 			<label>Ignored DX</label>
-			<pos>472,48</pos>
+			<pos>520,48</pos>
 			<size>72,19</size>
 			<font>
 				<size>8</size>
@@ -171,11 +170,11 @@
 		<object class="wxRadioButton" name="ID_RADIOBUTTON4" variable="usecq" member="yes">
 			<label>All CQ&apos;s</label>
 			<selected>1</selected>
-			<pos>608,96</pos>
+			<pos>688,280</pos>
 		</object>
 		<object class="wxStaticText" name="ID_STATICTEXT8" variable="StaticText8" member="yes">
 			<label>Wanted LOC</label>
-			<pos>544,48</pos>
+			<pos>616,48</pos>
 			<size>72,19</size>
 			<font>
 				<size>8</size>
@@ -188,7 +187,7 @@
 		</object>
 		<object class="wxRadioButton" name="ID_RADIOBUTTON6" variable="usewantedloc" member="yes">
 			<label>Use wanted LOC</label>
-			<pos>608,168</pos>
+			<pos>688,352</pos>
 		</object>
 		<object class="wxToggleButton" name="ID_TOGGLEBUTTON1" variable="pause" member="yes">
 			<label>Pause</label>
@@ -212,19 +211,19 @@
 		<object class="wxButton" name="ID_BUTTON7" variable="Button4" member="yes">
 			<label>Load</label>
 			<pos>400,408</pos>
-			<size>64,33</size>
+			<size>100,33</size>
 			<handler function="OnButton4Click" entry="EVT_BUTTON" />
 		</object>
 		<object class="wxButton" name="ID_BUTTON8" variable="Button5" member="yes">
 			<label>Load</label>
-			<pos>544,408</pos>
-			<size>64,33</size>
+			<pos>608,408</pos>
+			<size>80,33</size>
 			<handler function="OnButton5Click" entry="EVT_BUTTON" />
 		</object>
 		<object class="wxButton" name="ID_BUTTON6" variable="Button3" member="yes">
 			<label>Load</label>
-			<pos>472,408</pos>
-			<size>64,33</size>
+			<pos>504,408</pos>
+			<size>100,33</size>
 			<handler function="OnButton3Click" entry="EVT_BUTTON" />
 		</object>
 		<object class="wxButton" name="ID_BUTTON9" variable="Button6" member="yes">
